@@ -62,6 +62,15 @@
       "filterable": 1
     },
     {
+      "key": "py_山楂",
+      "name": "[4k] 山楂",
+      "type": 3,
+      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/4k/山楂.py",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1
+    },
+    {
       "key": "py_剧下饭",
       "name": "[4k] 剧下饭",
       "type": 3,
