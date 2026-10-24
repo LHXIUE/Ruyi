@@ -1,12 +1,19 @@
 {
+  "spider": "https://qiniu.gongxueyun.com/upload/6893388/2026-10-23/report/762889058_2_1792796519503.jar;md5;19b2f65c16f492ca8a9c3abadebe8129",
+
   "sites": [
     {
-        "key": "douban",
-        "name": "[片单] 豆瓣",
-        "type": 3,
-        "api": "csp_Douban",
-        "jar": "https://gitee.com/easy999/test1/raw/main/easy10.20.png;md5;89e4b4da711039208b57fd5f5d576817",
-        "searchable": 0
+      "key": "Douban",
+      "name": "[片单] 豆瓣",
+      "type": 3,
+      "api": "csp_DoubanAmns",
+      "jar": "https://file.icve.com.cn/file_doc/653/727/A37B5C22B56C4DCE38B519EE92256A8E.png;md5;a37b5c22b56c4dce38b519ee92256a8e",
+      "indexs": 1,
+      "searchable": 0,
+      "quickSearch": 0,
+      "changeable": 1,
+      "ext": "Douban"
+
     },
     {
       "key": "py_TMDB",
@@ -17,31 +24,25 @@
       "quickSearch": 1,
       "filterable": 1
     },
-    {
-        "key": "配置中心",
-        "name": "[网盘]配置中心",
-        "type": 3,
-        "api": "csp_Config",
-        "searchable": 0,
-        "changeable": 0,
-        "indexs": 0,
-        "style": {
-            "type": "rect",
-            "ratio": 1.618
-        }
+    {        
+      "key": "MyConfig",
+      "name": "[设置] 配置",
+      "type": 3,
+      "api": "csp_AAConfigAmns",
+      "searchable": 0,
+      "quickSearch": 0,
+      "changeable": 0
+      "jar": "https://file.icve.com.cn/file_doc/997/227/F9538F89E13ADF0CFBCA7909AE555AB6.png",
     },
     {
-        "key": "夸克网盘",
-        "name": "[网盘]夸克网盘",
-        "type": 3,
-        "api": "csp_PanQuark",
-        "searchable": 0,
-        "filterable": 0,
-        "changeable": 0,
-        "style": {
-            "type": "list",
-            "ratio": 1.433
-        }
+      "key": "MyAll",
+      "name": "[设置] 资源",
+      "type": 3,
+      "api": "csp_MyAllAmns",
+      "searchable": 0,
+      "quickSearch": 0,
+      "changeable": 0
+      "jar": "https://file.icve.com.cn/file_doc/997/227/F9538F89E13ADF0CFBCA7909AE555AB6.png",
     },
     {
       "key": "py_影探",
@@ -123,7 +124,6 @@
           "searchable": 1,
           "quickSearch": 0,
           "filterable": 0,
-          "jar": "https://qiniu.gongxueyun.com/upload/7121353/2026-10-16/report/443240978_2_1792156660171.jar;md5;e5672f7a97fdb66ccc0c525d73a2a3c2",
           "ext": {
             "cookie": "",
             "site": [
@@ -146,7 +146,6 @@
           "searchable": 1,
           "changeable": 1,
           "filterable": 1,
-          "jar": "https://qiniu.gongxueyun.com/upload/7121353/2026-10-16/report/443240978_2_1792156660171.jar;md5;e5672f7a97fdb66ccc0c525d73a2a3c2",
           "ext": {
             "site": [
               "https://wogg.xxooo.cf",
@@ -165,7 +164,6 @@
           "searchable": 1,
           "quickSearch": 1,
           "filterable": 1,
-          "jar": "https://qiniu.gongxueyun.com/upload/7121353/2026-10-16/report/443240978_2_1792156660171.jar;md5;e5672f7a97fdb66ccc0c525d73a2a3c2",
           "ext": "ARRavWPOi7W2Usqhe54R+NW2sQ6CCBOYajU9bIz/WVyF75mrlP6UsAbts+o//eKOpDWbngYFUGIJGTa56hr3Hk0="
     },
     {            
@@ -177,7 +175,6 @@
         "quickSearch": 1,
         "filterable": 1,
         "changeable": 1,
-        "jar": "https://qiniu.gongxueyun.com/upload/7121353/2026-10-16/report/443240978_2_1792156660171.jar;md5;e5672f7a97fdb66ccc0c525d73a2a3c2",
         "ext": {
         "site": [
                 "shturl.cc/KfImQk",
@@ -194,13 +191,12 @@
         "quickSearch": 1,
         "filterable": 1,
         "changeable": 1,
-        "jar": "https://qiniu.gongxueyun.com/upload/7121353/2026-10-16/report/443240978_2_1792156660171.jar;md5;e5672f7a97fdb66ccc0c525d73a2a3c2",
         "style": {
         "type": "list",
         "ratio": 1.433
         },
         "ext": {
-            "site": "https://xxx"
+        "site": "https://xxx"
         }
 
     },
@@ -212,7 +208,6 @@
           "searchable": 1,
           "quickSearch": 1,
           "filterable": 1,
-          "jar": "https://qiniu.gongxueyun.com/upload/7121353/2026-10-16/report/443240978_2_1792156660171.jar;md5;e5672f7a97fdb66ccc0c525d73a2a3c2",
           "ext": "ASH3HkV5cxNhNR9+uQe0sWYxUWHzEywHT3rcYOx+wsK4Jx+sBd0qMO9kFic1Rc1osAMsAsTlMgabd1Ky2kmzQ/Y="
     },
     {
@@ -220,7 +215,6 @@
       "name": "[摸鱼] 南枝4K",
       "api": "csp_AppUn",
       "type": 3,
-      "jar": "https://qiniu.gongxueyun.com/upload/7121353/2026-10-16/report/443240978_2_1792156660171.jar;md5;e5672f7a97fdb66ccc0c525d73a2a3c2",
       "ext": "AUj9LzI2v0nALIaWIMvrw0mqpqAfYqjLEaEdBg2Kpjpynjba5tcMRsocodhKWXuxaxWXNQhmHVm/5ch0t87+Ck3kUcf8gS3HStDFKx/zWH77"
     },
     {
@@ -228,7 +222,6 @@
       "name": "[摸鱼] 疏影4K",
       "api": "csp_AppUn",
       "type": 3,
-      "jar": "https://qiniu.gongxueyun.com/upload/7121353/2026-10-16/report/443240978_2_1792156660171.jar;md5;e5672f7a97fdb66ccc0c525d73a2a3c2",
       "ext": "AcWh+ygRkvJAOf11TNsY/RqlWx9GJlpo3j4tzpUl+u3fVki/utnqUPm2SGUaMOiuwO9ab8dc4NOr/Kone+3t4Pvvqo19sUMAcLVWyXq8gKIr"
     },
     {
@@ -236,7 +229,6 @@
       "name": "[摸鱼] 沐辞4K",
       "api": "csp_AppUn",
       "type": 3,
-      "jar": "https://qiniu.gongxueyun.com/upload/7121353/2026-10-16/report/443240978_2_1792156660171.jar;md5;e5672f7a97fdb66ccc0c525d73a2a3c2",
       "ext": "AYdXH70UMM8plqsXPmZuN9zEJQV/2vpn2nM5OAeVwvV966SO86n0qc/65IvyNOY7I8FscuN2i4tnXSoa2eVVhCbvIzsK+OAWQcMwpKHy1zZg"
     },
     {
@@ -244,7 +236,6 @@
       "name": "[摸鱼] 观澜",
       "api": "csp_AppUn",
       "type": 3,
-      "jar": "https://qiniu.gongxueyun.com/upload/7121353/2026-10-16/report/443240978_2_1792156660171.jar;md5;e5672f7a97fdb66ccc0c525d73a2a3c2",
       "ext": "AVV1qWzQBjKvN7CKup9rpdodlSeTxhlrSJPwshkidi4LdlbDt81YkaxBlOnImlhpaCXFZ3rlaVHkoA57wMFZIEUb0eGUhm8upw9Vw/Qq5sdr"
     },
     {
@@ -252,7 +243,6 @@
       "name": "[摸鱼] 枕霜",
       "api": "csp_AppUn",
       "type": 3,
-      "jar": "https://qiniu.gongxueyun.com/upload/7121353/2026-10-16/report/443240978_2_1792156660171.jar;md5;e5672f7a97fdb66ccc0c525d73a2a3c2",
       "ext": "Ae6vu7b7i5h70Oy94HyVp82ZDRF6HrMNdCYNTQ442xkG4kY88mkG1x34awtkrrUdk56x2qehUzy3YCLubZhewqD5a5lQeSsfcnYh8z8+qVVL"
     },
     {
@@ -264,7 +254,7 @@
         "quickSearch": 1,
         "filterable": 0,
         "ext": {
-            "url": "http://v.rbotv.cn"
+        "url": "http://v.rbotv.cn"
         }
     },
     {
@@ -290,7 +280,6 @@
         "quickSearch": 1,
         "filterable": 1,
         "changeable": 1,
-        "jar": "https://qiniu.gongxueyun.com/upload/7121353/2026-10-16/report/443240978_2_1792156660171.jar;md5;e5672f7a97fdb66ccc0c525d73a2a3c2"
     },
     {
         "key": "Duboku",
@@ -301,7 +290,6 @@
         "quickSearch": 1,
         "filterable": 1,
         "changeable": 1,
-        "jar": "https://qiniu.gongxueyun.com/upload/7121353/2026-10-16/report/443240978_2_1792156660171.jar;md5;e5672f7a97fdb66ccc0c525d73a2a3c2"
     },
     {
       "key": "py_八戒",
