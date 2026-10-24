@@ -31,7 +31,7 @@
       "searchable": 0,
       "quickSearch": 0,
       "changeable": 0,
-      "jar": "https://file.icve.com.cn/file_doc/997/227/F9538F89E13ADF0CFBCA7909AE555AB6.png",
+      "jar": "https://file.icve.com.cn/file_doc/997/227/F9538F89E13ADF0CFBCA7909AE555AB6.png"
     },
     {
       "key": "MyAll",
@@ -41,7 +41,7 @@
       "searchable": 0,
       "quickSearch": 0,
       "changeable": 0,
-      "jar": "https://file.icve.com.cn/file_doc/997/227/F9538F89E13ADF0CFBCA7909AE555AB6.png",
+      "jar": "https://file.icve.com.cn/file_doc/997/227/F9538F89E13ADF0CFBCA7909AE555AB6.png"
     },
     {
       "key": "py_影探",
@@ -278,7 +278,7 @@
         "searchable": 1,
         "quickSearch": 1,
         "filterable": 1,
-        "changeable": 1,
+        "changeable": 1
     },
     {
         "key": "Duboku",
@@ -288,7 +288,7 @@
         "searchable": 1,
         "quickSearch": 1,
         "filterable": 1,
-        "changeable": 1,
+        "changeable": 1
     },
     {
       "key": "py_八戒",
