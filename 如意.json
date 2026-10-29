@@ -381,15 +381,6 @@
       "filterable": 1
     },
     {
-      "key": "py_可可影视",
-      "name": "[高清] 可可影视",
-      "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%E9%AB%98%E7%A0%81%E7%8E%87/%E5%8F%AF%E5%8F%AF%E5%BD%B1%E8%A7%86.py",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1
-    },
-    {
       "key": "py_多多影视",
       "name": "[高清] 多多影视",
       "type": 3,
@@ -656,7 +647,16 @@
       "key": "py_正版红果短剧",
       "name": "[短剧] 正版红果短剧",
       "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%E7%9F%AD%E5%89%A7/%E6%AD%A3%E7%89%88%E7%BA%A2%E6%9E%9C%E7%9F%AD%E5%89%A7.py",
+      "api": "https://raw.githubusercontent.com/LHXIUE/Ruyi/refs/heads/main/py/短剧/正版红果短剧.py",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1
+    },
+    {
+      "key": "py_红果短剧_高清修复",
+      "name": "[短剧] 红果短剧",
+      "type": 3,
+      "api": "https://github.com/LHXIUE/Ruyi/raw/refs/heads/main/py/短剧/红果短剧_高清修复.py",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1
