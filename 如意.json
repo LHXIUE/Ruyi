@@ -489,6 +489,15 @@
       "filterable": 1
     },
     {
+      "key": "py_看看鸭_智谱",
+      "name": "[自写] 看看鸭",
+      "type": 3,
+      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/refs/heads/main/py/自写/看看鸭 智谱.py",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1
+    },
+    {
       "key": "py_洛雪TV4k_小龙虾",
       "name": "[自写] 洛雪TV",
       "type": 3,
