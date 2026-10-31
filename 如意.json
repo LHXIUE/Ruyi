@@ -498,15 +498,6 @@
       "filterable": 1
     },
     {
-      "key": "py_洛雪TV4k_小龙虾",
-      "name": "[自写] 洛雪TV",
-      "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%E8%87%AA%E5%86%99/%E6%B4%9B%E9%9B%AATV4k%20%E5%B0%8F%E9%BE%99%E8%99%BE.py",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1
-    },
-    {
       "key": "py_橘子影视_搭子",
       "name": "[自写] 橘子影视",
       "type": 3,
