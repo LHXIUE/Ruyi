@@ -24,15 +24,15 @@
       "filterable": 1
     },
     {
-  "key": "push_agent",
-  "name": "💌推送[应用]",
-  "type": 3,
-  "api": "csp_Push",
-  "jar": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/jar/%E5%85%A8%E7%90%83%E8%BF%BD%E6%9B%B4.jar;md5;7c2b08bf609bfe30cee1f8ad88dcb00d",
-  "searchable": 0,
-  "changeable": 0,
-  "indexs": 0,
-  "timeout": 60
+      "key": "push_agent",
+      "name": "💌推送[应用]",
+      "type": 3,
+      "api": "csp_Push",
+      "jar": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/jar/%E5%85%A8%E7%90%83%E8%BF%BD%E6%9B%B4.jar;md5;7c2b08bf609bfe30cee1f8ad88dcb00d",
+      "searchable": 0,
+      "changeable": 0,
+      "indexs": 0,
+      "timeout": 60
     },
     {
       "key": "FishConfig",
@@ -722,7 +722,7 @@
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1
-    },
+    }
   ],
   "parses": [],
   "lives": [],
