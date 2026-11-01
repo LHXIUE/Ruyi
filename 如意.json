@@ -23,15 +23,24 @@
       "quickSearch": 1,
       "filterable": 1
     },
+    {"sites":[{"api":"csp_Push",
+    "changeable":0,"indexs":0,
+    "key":"push_agent",
+    "name":"💌推送[应用]",
+    "searchable":0,
+    "timeout":60,
+    "type":3}],
+    "spider":"https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/jar/全球追更.jar"
+    }
     {
       "key": "FishConfig",
-      "name": "[摸鱼]设置",
+      "name": "[摸鱼]配置",
       "type": 3,
       "api": "csp_FishConfig"
     },
     {        
       "key": "MyConfig",
-      "name": "[设置] 配置",
+      "name": "[嗷呜] 配置",
       "type": 3,
       "api": "csp_AAConfigAmns",
       "searchable": 0,
@@ -41,7 +50,7 @@
     },
     {
       "key": "MyAll",
-      "name": "[设置] 资源",
+      "name": "[嗷呜] 资源",
       "type": 3,
       "api": "csp_MyAllAmns",
       "searchable": 0,
@@ -346,6 +355,15 @@
       "name": "[高清] 帧不戳",
       "type": 3,
       "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%E9%AB%98%E7%A0%81%E7%8E%87/%E5%B8%A7%E4%B8%8D%E6%88%B34K.py",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1
+    },
+    {
+      "key": "py_全看网",
+      "name": "[高清] 全看网",
+      "type": 3,
+      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/高码率/全看网.py",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1
@@ -668,294 +686,6 @@
       "filterable": 1
     },
     {
-      "key": "py_8度",
-      "name": "[🔞] 8度",
-      "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%F0%9F%94%9E/8%E5%BA%A6.py",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1
-    },
-    {
-      "key": "py_猫咪",
-      "name": "[🔞] 猫咪",
-      "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%F0%9F%94%9E/%E7%8C%AB%E5%92%AA.py",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1
-    },
-    {
-      "key": "py_白丝",
-      "name": "[🔞] 白丝",
-      "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%F0%9F%94%9E/%E7%99%BD%E4%B8%9D.py",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1
-    },
-    {
-      "key": "py_百撸",
-      "name": "[🔞] 百撸",
-      "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%F0%9F%94%9E/%E7%99%BE%E6%92%B8.py",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1
-    },
-    {
-      "key": "py_野马",
-      "name": "[🔞] 野马",
-      "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%F0%9F%94%9E/%E9%87%8E%E9%A9%AC.py",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1
-    },
-    {
-      "key": "py_51X",
-      "name": "[🔞] 51X",
-      "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%F0%9F%94%9E/51X.py",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1
-    },
-    {
-      "key": "py_vip",
-      "name": "[🔞] vip",
-      "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%F0%9F%94%9E/vip.py",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1
-    },
-    {
-      "key": "py_十三妹",
-      "name": "[🔞] 十三妹",
-      "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%F0%9F%94%9E/%E5%8D%81%E4%B8%89%E5%A6%B9.py",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1
-    },
-    {
-      "key": "py_天籁社",
-      "name": "[🔞] 天籁社",
-      "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%F0%9F%94%9E/%E5%A4%A9%E7%B1%81%E7%A4%BE.py",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1
-    },
-    {
-      "key": "py_果蜜园",
-      "name": "[🔞] 果蜜园",
-      "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%F0%9F%94%9E/%E6%9E%9C%E8%9C%9C%E5%9B%AD.py",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1
-    },
-    {
-      "key": "py_泡泡屋",
-      "name": "[🔞] 泡泡屋",
-      "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%F0%9F%94%9E/%E6%B3%A1%E6%B3%A1%E5%B1%8B.py",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1
-    },
-    {
-      "key": "py_玉满堂",
-      "name": "[🔞] 玉满堂",
-      "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%F0%9F%94%9E/%E7%8E%89%E6%BB%A1%E5%A0%82.py",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1
-    },
-    {
-      "key": "py_红凤凰",
-      "name": "[🔞] 红凤凰",
-      "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%F0%9F%94%9E/%E7%BA%A2%E5%87%A4%E5%87%B0.py",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1
-    },
-    {
-      "key": "py_色天堂",
-      "name": "[🔞] 色天堂",
-      "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%F0%9F%94%9E/%E8%89%B2%E5%A4%A9%E5%A0%82.py",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1
-    },
-    {
-      "key": "py_蜜桃园",
-      "name": "[🔞] 蜜桃园",
-      "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%F0%9F%94%9E/%E8%9C%9C%E6%A1%83%E5%9B%AD.py",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1
-    },
-    {
-      "key": "py_迷妹网",
-      "name": "[🔞] 迷妹网",
-      "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%F0%9F%94%9E/%E8%BF%B7%E5%A6%B9%E7%BD%91.py",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1
-    },
-    {
-      "key": "py_黑凤凰",
-      "name": "[🔞] 黑凤凰",
-      "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%F0%9F%94%9E/%E9%BB%91%E5%87%A4%E5%87%B0.py",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1
-    },
-    {
-      "key": "py_51猫咪",
-      "name": "[🔞] 51猫咪",
-      "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%F0%9F%94%9E/51%E7%8C%AB%E5%92%AA.py",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1
-    },
-    {
-      "key": "py_52瓜瓜",
-      "name": "[🔞] 52瓜瓜",
-      "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%F0%9F%94%9E/52%E7%93%9C%E7%93%9C.py",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1
-    },
-    {
-      "key": "py_SWAV",
-      "name": "[🔞] SWAV",
-      "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%F0%9F%94%9E/SWAV.py",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1
-    },
-    {
-      "key": "py_jp98",
-      "name": "[🔞] jp98",
-      "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%F0%9F%94%9E/jp98.py",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1
-    },
-    {
-      "key": "py_人瘦典藏",
-      "name": "[🔞] 人瘦典藏",
-      "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%F0%9F%94%9E/%E4%BA%BA%E7%98%A6%E5%85%B8%E8%97%8F.py",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1
-    },
-    {
-      "key": "py_十二春宫",
-      "name": "[🔞] 十二春宫",
-      "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%F0%9F%94%9E/%E5%8D%81%E4%BA%8C%E6%98%A5%E5%AE%AB.py",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1
-    },
-    {
-      "key": "py_善解人衣",
-      "name": "[🔞] 善解人衣",
-      "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%F0%9F%94%9E/%E5%96%84%E8%A7%A3%E4%BA%BA%E8%A1%A3.py",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1
-    },
-    {
-      "key": "py_国色天香",
-      "name": "[🔞] 国色天香",
-      "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%F0%9F%94%9E/%E5%9B%BD%E8%89%B2%E5%A4%A9%E9%A6%99.py",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1
-    },
-    {
-      "key": "py_搔首弄姿",
-      "name": "[🔞] 搔首弄姿",
-      "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%F0%9F%94%9E/%E6%90%94%E9%A6%96%E5%BC%84%E5%A7%BF.py",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1
-    },
-    {
-      "key": "py_播播短剧",
-      "name": "[🔞] 播播短剧",
-      "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%F0%9F%94%9E/%E6%92%AD%E6%92%AD%E7%9F%AD%E5%89%A7.py",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1
-    },
-    {
-      "key": "py_无码之家",
-      "name": "[🔞] 无码之家",
-      "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%F0%9F%94%9E/%E6%97%A0%E7%A0%81%E4%B9%8B%E5%AE%B6.py",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1
-    },
-    {
-      "key": "py_日本大穴",
-      "name": "[🔞] 日本大穴",
-      "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%F0%9F%94%9E/%E6%97%A5%E6%9C%AC%E5%A4%A7%E7%A9%B4.py",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1
-    },
-    {
-      "key": "py_最佳射手",
-      "name": "[🔞] 最佳射手",
-      "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%F0%9F%94%9E/%E6%9C%80%E4%BD%B3%E5%B0%84%E6%89%8B.py",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1
-    },
-    {
-      "key": "py_杏吧视频",
-      "name": "[🔞] 杏吧视频",
-      "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%F0%9F%94%9E/%E6%9D%8F%E5%90%A7%E8%A7%86%E9%A2%91.py",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1
-    },
-    {
-      "key": "py_绝色4K",
-      "name": "[🔞] 绝色4K",
-      "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%F0%9F%94%9E/%E7%BB%9D%E8%89%B24K.py",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1
-    },
-    {
       "key": "py_绿豆短剧",
       "name": "[🔞] 绿豆短剧",
       "type": 3,
@@ -966,63 +696,9 @@
     },
     {
       "key": "py_黄豆短剧",
-      "name": "[🔞] 黄豆短剧",
+      "name": "[🔞] 黄豆短剧翻",
       "type": 3,
       "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%F0%9F%94%9E/%E9%BB%84%E8%B1%86%E7%9F%AD%E5%89%A7.py",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1
-    },
-    {
-      "key": "py_51短剧翻",
-      "name": "[🔞] 51短剧翻",
-      "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%F0%9F%94%9E/51%E7%9F%AD%E5%89%A7%E7%BF%BB.py",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1
-    },
-    {
-      "key": "py_520短剧",
-      "name": "[🔞] 520短剧",
-      "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%F0%9F%94%9E/520%E7%9F%AD%E5%89%A7.py",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1
-    },
-    {
-      "key": "py_91短剧翻",
-      "name": "[🔞] 91短剧翻",
-      "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%F0%9F%94%9E/91%E7%9F%AD%E5%89%A7%E7%BF%BB.py",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1
-    },
-    {
-      "key": "py_only翻",
-      "name": "[🔞] only翻",
-      "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%F0%9F%94%9E/only%E7%BF%BB.py",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1
-    },
-    {
-      "key": "py_呦女性指导",
-      "name": "[🔞] 呦女性指导",
-      "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%F0%9F%94%9E/%E5%91%A6%E5%A5%B3%E6%80%A7%E6%8C%87%E5%AF%BC.py",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1
-    },
-    {
-      "key": "py_私房研究所",
-      "name": "[🔞] 私房研究所",
-      "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%F0%9F%94%9E/%E7%A7%81%E6%88%BF%E7%A0%94%E7%A9%B6%E6%89%80.py",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1
@@ -1037,68 +713,14 @@
       "filterable": 1
     },
     {
-      "key": "py_618大扫荡",
-      "name": "[🔞] 618大扫荡",
+      "key": "py_51短剧翻",
+      "name": "[🔞] 51短剧翻",
       "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%F0%9F%94%9E/618%E5%A4%A7%E6%89%AB%E8%8D%A1.py",
+      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%F0%9F%94%9E/51%E7%9F%AD%E5%89%A7%E7%BF%BB.py",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1
     },
-    {
-      "key": "py_91大神_翻",
-      "name": "[🔞] 91大神.翻",
-      "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%F0%9F%94%9E/91%E5%A4%A7%E7%A5%9E.%E7%BF%BB.py",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1
-    },
-    {
-      "key": "py_peters",
-      "name": "[🔞] peters",
-      "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%F0%9F%94%9E/peters.py",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1
-    },
-    {
-      "key": "py_javday翻",
-      "name": "[🔞] javday翻",
-      "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%F0%9F%94%9E/javday%E7%BF%BB.py",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1
-    },
-    {
-      "key": "py_kaniptv",
-      "name": "[🔞] kaniptv",
-      "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%F0%9F%94%9E/kaniptv.py",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1
-    },
-    {
-      "key": "py_prshine",
-      "name": "[🔞] prshine",
-      "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%F0%9F%94%9E/prshine.py",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1
-    },
-    {
-      "key": "py_xhamster翻",
-      "name": "[🔞] xhamster翻",
-      "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%F0%9F%94%9E/xhamster%E7%BF%BB.py",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1
-    }
   ],
   "parses": [],
   "lives": [],
