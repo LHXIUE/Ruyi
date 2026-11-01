@@ -24,9 +24,93 @@ import hashlib
 import base64
 import time
 import urllib.parse
-import requests
+import urllib.request
+import urllib.error
+import http.cookiejar
 from urllib.parse import quote
-from base.spider import Spider
+
+try:
+    from base.spider import Spider
+except Exception:
+    try:
+        from base import Spider
+    except Exception:
+        class Spider(object):
+            def getName(self): return '歪比巴卜'
+            def init(self, e=''): return None
+            def homeContent(self, filter=False): return {}
+            def homeVideoContent(self): return {}
+            def categoryContent(self, tid, pg=1, filter=False, extend=None): return {}
+            def detailContent(self, ids): return {}
+            def searchContent(self, key, quick=False, pg=''): return {}
+            def playerContent(self, flag, id, vipFlags=None): return {}
+            def isVideoFormat(self, url): return False
+            def manualVideoCheck(self): return False
+            def getDependence(self): return []
+            def getProxyUrl(self): return 'http://127.0.0.1:9978/proxy?do=py'
+            def localProxy(self, param): return [404, '', b'']
+            def action(self, a): return {}
+            def destroy(self): return None
+
+
+# ===== requests 兼容层(影视仓/TVBox 的 Python 环境**没有 requests**,
+#     原版 `import requests` 会让整个模块导入失败 → 源在壳子里"跟没加载一样") =====
+class _Resp(object):
+    """最小 requests.Response 兼容层, 只实现本源用到的属性"""
+    def __init__(self, status, body, headers):
+        self.status_code = status
+        self.content = body if isinstance(body, bytes) else str(body).encode('utf-8', 'replace')
+        self.text = self.content.decode('utf-8', 'replace')
+        self.headers = headers or {}
+        self.ok = 200 <= status < 300
+        self.url = ''
+
+    def json(self):
+        return json.loads(self.text)
+
+    def raise_for_status(self):
+        if not self.ok:
+            raise Exception('HTTP %s' % self.status_code)
+
+
+class _USession(object):
+    """requests.Session 的最小替身: 标准库 urllib + CookieJar"""
+    def __init__(self):
+        self.headers = {}
+        self.cj = http.cookiejar.CookieJar()
+        self.opener = urllib.request.build_opener(
+            urllib.request.HTTPCookieProcessor(self.cj))
+
+    def _do(self, url, headers=None, data=None, timeout=20):
+        h = dict(self.headers)
+        h.update(headers or {})
+        body = None
+        if data is not None:
+            if isinstance(data, dict):
+                body = urllib.parse.urlencode(data).encode('utf-8')
+            elif isinstance(data, str):
+                body = data.encode('utf-8')
+            else:
+                body = data
+            h.setdefault('Content-Type', 'application/x-www-form-urlencoded')
+        req = urllib.request.Request(
+            url, data=body, headers=h,
+            method=('POST' if body is not None else 'GET'))
+        try:
+            with self.opener.open(req, timeout=timeout) as r:
+                return _Resp(r.getcode(), r.read(), dict(r.headers))
+        except urllib.error.HTTPError as e:
+            try:
+                b = e.read()
+            except Exception:
+                b = b''
+            return _Resp(e.code, b, dict(e.headers))
+
+    def get(self, url, headers=None, timeout=20):
+        return self._do(url, headers=headers, timeout=timeout)
+
+    def post(self, url, data=None, headers=None, timeout=20):
+        return self._do(url, headers=headers, data=data, timeout=timeout)
 
 # ==================== 纯Python RC4（无第三方库兜底）====================
 def _rc4_crypt(data, key):
@@ -195,13 +279,16 @@ try:
         data = data if isinstance(data, bytes) else data.encode('utf-8')
         return ARC4.new(key).decrypt(data)
     def _aes_decrypt(data, key, iv):
-        cipher = AES.new(key.encode('utf-8'), AES.MODE_CBC, iv.encode('utf-8'))
+        key_b = key if isinstance(key, bytes) else key.encode('utf-8')
+        iv_b = iv if isinstance(iv, bytes) else iv.encode('utf-8')
+        cipher = AES.new(key_b, AES.MODE_CBC, iv_b)
         return unpad(cipher.decrypt(base64.b64decode(data)), AES.block_size).decode('utf-8')
     CRYPTO_OK = True
 except ImportError:
     CRYPTO_OK = False
     def _aes_decrypt(data, key, iv):
-        return _PureAES(key.encode('utf-8')).decrypt_cbc(data, iv).decode('utf-8')
+        key_b = key if isinstance(key, bytes) else key.encode('utf-8')
+        return _PureAES(key_b).decrypt_cbc(data, iv).decode('utf-8')
 
 # 可选验证码识别库（搜索页需要）
 try:
@@ -388,17 +475,9 @@ def _ocr_captcha_pure(img_bytes):
 class Spider(Spider):
     # ==================== 基础配置 ====================
     name = "歪比巴卜"
-    base_url = "https://v.wbbb1.com"
-    site_url = "https://v.wbbb1.com"
+    base_url = "https://wbbb1.com"
+    site_url = "https://wbbb1.com"
     PARSE_DOMAIN = "xn--qvr2v.850088.xyz"
-
-    # 跨页去重：记录每个分类筛选组合上一页的 vod_id 列表
-    # 当翻页时，过滤掉上一页已出现的项，解决"跨页第一张重复"问题
-    _CAT_PAGEMARK = {}
-
-    # 搜索缓存（类级，壳可能多次实例化 Spider）
-    _SEARCH_CACHE = {}
-    _SEARCH_CACHE_TTL = 60  # 缓存60秒，同一关键词重复搜索直接返回
 
     # 聚合搜索配置：声明本源支持壳子全局搜索、快速搜索、筛选和换源聚合
     searchable = 1
@@ -408,35 +487,55 @@ class Spider(Spider):
 
     # ==================== 请求头 ====================
     headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
+        "User-Agent": "vivox200",
         "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8",
         "Accept-Language": "zh-CN,zh;q=0.9",
-        "Referer": "https://v.wbbb1.com/",
+        "Referer": "https://wbbb1.com/",
         "Connection": "keep-alive",
+        # 补齐浏览器指纹头: 裸 urllib 请求缺这些头, 容易被源站反爬识别后
+        # 返回空响应(Cloudflare 侧表现为 520), 而正常浏览器却能打开
+        "Upgrade-Insecure-Requests": "1",
+        "Sec-Fetch-Dest": "document",
+        "Sec-Fetch-Mode": "navigate",
+        "Sec-Fetch-Site": "none",
+        "Sec-Fetch-User": "?1",
+        "sec-ch-ua": '"Chromium";v="126", "Not:A-Brand";v="24", "Google Chrome";v="126"',
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": '"Windows"',
+        "Cache-Control": "max-age=0",
     }
 
     play_headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
-        "Referer": "https://v.wbbb1.com/",
+        "User-Agent": "vivox200",
+        "Referer": "https://wbbb1.com/",
         "Accept": "*/*",
     }
 
     def __init__(self):
         super().__init__()
         # 复用 TCP 连接，显著降低多次请求（预热、vplay、API）的握手开销
-        self._session = requests.Session()
+        self._session = _USession()
         self._session.headers.update(self.headers)
         self._cookies = ""
         self._play_cache = {}
         self._cache_ttl = 1800
         # 请求间隔控制，降低触发 Cloudflare 频率限制的概率
         self._last_req_time = 0
-        self._min_req_interval = 0.12
+        self._min_req_interval = 0.45
         self._block_until = 0
         # vplay 会话是否已预热，延迟预热可减少初始化请求数
         self._vplay_warmed = False
         # 搜索验证码是否已通过(会话级, 通过后短时间内免验证)
         self._verify_passed = False
+        # ---- 多节点容灾: 源站间歇性 520 / 域名迁移时自动切换线路 ----
+        self._nodes = [self.base_url]           # 候选节点, 首个为当前使用
+        self._node_idx = 0
+        self._nodes_discovered = False          # 是否已从发布页拉取最新节点
+        self._home_cache = None                 # 首页数据兜底缓存
+        self._home_cache_time = 0
+        self._last_diag = ""                    # 最近一次失败的诊断信息
+        self._err_log = []                      # 最近错误环形日志(供诊断页展示)
+        self._class_cache = None                # 分类数据兜底缓存
         # 预编译常用正则，提升解析速度
         self._re_detail_title = re.compile(r'<h1>([^<]*)</h1>')
         self._re_vplay_link = re.compile(r'<a[^>]*href="/vplay/(\d+)-(\d+)-(\d+)\.html"[^>]*>.*?<span>([^<]*)</span>', re.DOTALL)
@@ -458,21 +557,6 @@ class Spider(Spider):
                 break
             prev = cleaned
         return prev
-
-    def _clean_vod_pic(self, pic):
-        """清洗海报图片 URL：
-        1. 过滤 load.gif 占位图
-        2. .avif 格式转换为 .webp（TVBox Glide 不支持 AVIF）
-        3. 补全协议头
-        """
-        if not pic or 'load.gif' in pic:
-            return ''
-        # 补全协议
-        if pic.startswith('//'):
-            pic = 'https:' + pic
-        # AVIF → WEBP（TVBox 壳子 Glide 不支持 AVIF 格式）
-        pic = re.sub(r'\.avif', '.webp', pic, flags=re.I)
-        return pic
 
     def fetch(self, url, headers=None, timeout=15):
         self._apply_req_delay()
@@ -498,7 +582,7 @@ class Spider(Spider):
     # ==================== 分类映射（不变，4个分类）====================
     class_name = ["电影", "剧集", "动漫", "综艺"]
     class_url = ["1", "2", "3", "4"]
-    CATEGORY_NAMES = {"1": "电影", "2": "剧集", "3": "动漫", "4": "综艺"}
+    CATEGORY_NAMES = {"999": "🔧诊断", "1": "电影", "2": "剧集", "3": "动漫", "4": "综艺"}
 
     # ==================== 筛选器配置（key 与 URL 字段位置对应）====================
     FILTERS = {
@@ -673,10 +757,19 @@ class Spider(Spider):
     def _rc4_decrypt(self, data, key):
         key_b = key.encode('utf-8') if isinstance(key, str) else key
         data_b = base64.b64decode(data)
-        return _rc4_crypt(data_b, key_b).decode('utf-8')
+        # 关键修复: 返回原始字节, 不要按 UTF-8 解码。
+        # 站点返回的 aes_key/aes_iv 是 RC4 加密后的**二进制**(16字节),
+        # 含非 ASCII 字节时 .decode('utf-8') 会抛 UnicodeDecodeError, 且解码出的
+        # 密钥再 encode 回去也已损坏 -> 播放解密必败、退化成解析页兜底。
+        # 改为返回 bytes, 由下一层 _aes_decrypt 直接使用; 若上游约定为 ASCII 文本,
+        # bytes 在 AES.new 中仍等价于原文本 encode 后的结果, 完全向后兼容。
+        return _rc4_crypt(data_b, key_b)
 
     def _aes_decrypt(self, data, key, iv):
-        return _aes_decrypt(data, key, iv)
+        # key/iv 可能是 RC4 解出的二进制 bytes(修复后), 也可能是上游约定的 ASCII 文本
+        key_b = key if isinstance(key, bytes) else key.encode('utf-8')
+        iv_b = iv if isinstance(iv, bytes) else iv.encode('utf-8')
+        return _aes_decrypt(data, key_b, iv_b)
 
     def _clean_html(self, text):
         if not text:
@@ -733,68 +826,8 @@ class Spider(Spider):
             return True
         # 挑战页特征：极短且包含 window.location.href 跳回本页
         if len(html) < 600:
-            return bool(re.search(r'window\.location\.href\s*=\s*"/?(?:vplay|detail)/', html, re.I))
+            return bool(re.search(r'window\.location\.href\s*=\s*"/?vplay/', html, re.I))
         return False
-
-    def _is_slider_page(self, html):
-        """检测 Cloudflare 滑块验证页（vplay/detail 页 403 时返回）"""
-        if not html:
-            return False
-        return '滑动验证' in html or 'huadong_' in html
-
-    def _solve_slider_challenge(self):
-        """自动绕过 Cloudflare 滑块验证：
-        1. 访问任意 vplay 页触发 403 滑块页
-        2. 从滑块页提取 JS URL → 从 JS 提取 key/value/type
-        3. 计算 md5(stringtoHex(value)) 调用验证端点
-        4. 获取放行 cookie，后续请求免验证
-        """
-        try:
-            h = self.headers.copy()
-            # 1. 触发滑块页
-            resp = self.fetch(f"{self.base_url}/vplay/0-0-0.html", headers=h, timeout=8)
-            self._extract_cookies(resp)
-            html = resp.text
-
-            if not self._is_slider_page(html):
-                self._log("未触发滑块验证，无需绕过")
-                return True
-
-            # 2. 提取 JS URL
-            js_m = re.search(r'src="(/huadong_[a-f0-9]+_[a-f0-9]+\.js\?id=\d+)"', html)
-            if not js_m:
-                self._log("滑块页未找到 JS URL")
-                return False
-            js_url = f"{self.base_url}{js_m.group(1)}"
-
-            # 3. 从 JS 提取 key/value/type
-            js_resp = self.fetch(js_url, headers=h, timeout=8)
-            self._extract_cookies(js_resp)
-            js_text = js_resp.text
-            key_m = re.search(r'key="([a-f0-9]+)"', js_text)
-            val_m = re.search(r'value="([a-f0-9]+)"', js_text)
-            type_m = re.search(r'type=([a-f0-9]+)', js_text)
-            if not key_m or not val_m:
-                self._log("滑块 JS 未提取到 key/value")
-                return False
-            key = key_m.group(1)
-            value = val_m.group(1)
-            type_val = type_m.group(1) if type_m else ''
-
-            # 4. 计算 encoded value: md5(stringtoHex(value))
-            #    stringtoHex: 每个字符 charCode+1 拼接
-            hex_str = ''.join(str(ord(c) + 1) for c in value)
-            encoded = hashlib.md5(hex_str.encode()).hexdigest()
-
-            # 5. 调用验证端点
-            verify_url = f"{self.base_url}/a20be899_96a6_40b2_88ba_32f1f75f1552_yanzheng_huadong.php?type={type_val}&key={key}&value={encoded}"
-            v_resp = self.fetch(verify_url, headers=h, timeout=8)
-            self._extract_cookies(v_resp)
-            self._log(f"滑块验证完成, cookie: {self._cookies[:80]}")
-            return True
-        except Exception as e:
-            self._log(f"滑块验证异常: {e}")
-            return False
 
     def _is_verify_page(self, html):
         """检测搜索页是否需要验证码或触发频繁操作限制"""
@@ -807,13 +840,19 @@ class Spider(Spider):
         """检测 Cloudflare/IP 频率限制等封禁页面"""
         if not html:
             return True
+        # 页面里已含真实内容链接, 一定不是封禁页。
+        # 该站走 Cloudflare 加速, 正常页面可能出现 'Cloudflare' 字样,
+        # 若无此守卫会误判封禁 -> 主页空白。
+        if '/detail/' in html or 'module-item' in html or 'vod-list' in html:
+            return False
         markers = (
             'You are being rate limited',
             'Error 1015',
             'cf-error-details',
             'Access denied |',
-            'Cloudflare',
-            'Banned',
+            'error 520',
+            'Error 502',
+            'Web server is down',
             '您的访问过于频繁',
         )
         return any(m in html for m in markers)
@@ -829,19 +868,10 @@ class Spider(Spider):
                 ocr = ddddocr.DdddOcr(show_ad=False)
             except Exception:
                 ocr = None
-        # 关键：v.wbbb1.com 的验证码接口在未过滑块前会返回 403，先确保滑块 cookie 就位
-        if not self._vplay_warmed:
-            self._warmup_vplay_session()
         for attempt in range(max_retry):
             try:
                 resp = self.fetch(verify_url, headers=h, timeout=8)
                 self._extract_cookies(resp)
-                # 若验证码接口被 Cloudflare 拦（403/滑块页），重新过滑块后再试
-                if getattr(resp, 'status_code', 200) in (403, 429) or self._is_slider_page(resp.text):
-                    self._log(f"验证码接口被拦（{getattr(resp,'status_code','?')}），重新过滑块")
-                    self._solve_slider_challenge()
-                    resp = self.fetch(verify_url, headers=h, timeout=8)
-                    self._extract_cookies(resp)
                 img_data = resp.content
 
                 # 验证码接口也可能被频率限制
@@ -889,35 +919,156 @@ class Spider(Spider):
                 self._log(f"验证码处理异常: {e}")
         return False
 
+    # ==================== 多节点容灾 ====================
+    # 官方地址发布页(中文域名), 站点迁移时这里会给出最新可用节点
+    PUBLISH_HOSTS = [
+        "https://xn--clr79vmzkema.com",   # 歪比巴卜.com
+        "https://wbbb1.com",
+    ]
+    FALLBACK_NODES = [
+        "https://wbbb1.com",
+        "https://v.wbbb1.com",
+        "https://www.wbbb1.com",
+    ]
+
+    def _discover_nodes(self):
+        """从官方发布页拉取最新节点清单(只做一次, 失败则用内置候选)。"""
+        if self._nodes_discovered:
+            return
+        self._nodes_discovered = True
+        found = []
+        for ph in self.PUBLISH_HOSTS:
+            try:
+                h = dict(self.headers)
+                h["Referer"] = ph + "/"
+                resp = self._session.get(ph + "/domains.json", headers=h, timeout=6)
+                txt = resp.text or ""
+                if '"node' not in txt:
+                    continue
+                data = json.loads(txt)
+                for k in sorted(data.keys()):
+                    for u in (data.get(k) or []):
+                        u = str(u).strip().rstrip('/')
+                        if u.startswith("http") and u not in found:
+                            found.append(u)
+                if found:
+                    self._log("发布页发现节点: %s" % ",".join(found))
+                    break
+            except Exception as e:
+                self._log("发布页节点获取失败: %s" % e)
+        # 合并: 发布页节点优先, 其后是内置候选, 最后是当前 base_url
+        nodes = []
+        for u in found + self.FALLBACK_NODES + [self.base_url]:
+            u = str(u).strip().rstrip('/')
+            if u.startswith("http") and u not in nodes:
+                nodes.append(u)
+        if nodes:
+            self._nodes = nodes
+            # 保持当前 base_url 为首选(若它在清单里), 避免无谓切换
+            if self.base_url in nodes:
+                self._node_idx = nodes.index(self.base_url)
+            else:
+                self._node_idx = 0
+
+    def _set_node(self, idx):
+        """切换到指定节点, 同步 base_url/site_url/Referer。"""
+        if not self._nodes:
+            return
+        idx = idx % len(self._nodes)
+        self._node_idx = idx
+        new_base = self._nodes[idx]
+        if new_base == self.base_url:
+            return
+        self._log("切换节点: %s -> %s" % (self.base_url, new_base))
+        self.base_url = new_base
+        self.site_url = new_base
+        nh = dict(self.headers)
+        nh["Referer"] = new_base + "/"
+        self.headers = nh
+        try:
+            self._session.headers.update(nh)
+        except Exception:
+            pass
+        # 换节点后旧会话 cookie 不通用, 重新预热
+        self._vplay_warmed = False
+
+    def _switch_node(self):
+        """切换到下一个候选节点。"""
+        if len(self._nodes) < 2:
+            self._discover_nodes()
+        if len(self._nodes) > 1:
+            self._set_node(self._node_idx + 1)
+
+    def _current_url(self, url):
+        """把写死旧域名的 URL 重写到当前节点。"""
+        try:
+            from urllib.parse import urlsplit
+            sp = urlsplit(url)
+            if not sp.netloc:
+                return url
+            cur = urlsplit(self.base_url).netloc
+            if sp.netloc == cur:
+                return url
+            # 仅重写属于本站的域名(含各候选节点), 不动外链(图床/播放CDN)
+            known = set()
+            for n in (self._nodes or []) + self.FALLBACK_NODES:
+                try:
+                    known.add(urlsplit(n).netloc)
+                except Exception:
+                    pass
+            known.add("wbbb1.com")
+            if sp.netloc in known:
+                return "%s://%s%s%s%s" % (sp.scheme or "https", cur, sp.path,
+                                          ("?" + sp.query) if sp.query else "",
+                                          ("#" + sp.fragment) if sp.fragment else "")
+        except Exception:
+            pass
+        return url
+
     def _get(self, url, max_retry=3, timeout=10):
-        """GET请求封装（依赖 Session 自动维护 Cookie，含异常捕获+重试+vplay预热+滑块验证+频率限制）"""
+        """GET请求封装（依赖 Session 自动维护 Cookie，含异常捕获+重试+vplay预热+频率限制）"""
         h = self.headers.copy()
         html = ""
+        # 首次请求前尝试拿到最新节点清单(静默失败, 不影响主流程)
+        if not self._nodes_discovered:
+            try:
+                self._discover_nodes()
+            except Exception:
+                pass
         try:
             for attempt in range(max_retry):
+                url = self._current_url(url)
+                h = self.headers.copy()
                 resp = self.fetch(url, headers=h, timeout=timeout)
                 self._extract_cookies(resp)
                 html = resp.text
+                # 520/502/503/504 = Cloudflare 连不上源站。这类错误官方标注
+                # retryable=true, 且该站源站是**间歇性**抖动: 立即放弃会让
+                # 主页/详情整页空白。改为短暂退避后重试, 并轮换备用节点。
+                try:
+                    _sc = getattr(resp, 'status_code', 0) or 0
+                except Exception:
+                    _sc = 0
+                if _sc in (520, 502, 503, 504):
+                    snippet = re.sub(r'\s+', ' ', (html or ''))[:160]
+                    self._last_diag = "HTTP %s @%s | %s" % (_sc, url, snippet)
+                    self._log(self._last_diag)
+                    self._record_err("HTTP %s %s" % (_sc, url))
+                    if attempt < max_retry - 1:
+                        self._switch_node()      # 换一条线路再试
+                        time.sleep(1.0 + attempt)
+                        continue
+                    # 所有重试都失败: 再轮换一次节点, 供下次请求使用
+                    self._switch_node()
+                    return ""
                 # 触发 Cloudflare 频率限制时冷却后继续重试，避免直接失败
                 if self._is_blocked_page(html):
                     wait = 2 + attempt * 2
                     self._block_until = time.time() + wait
                     self._log(f"请求被频率限制，进入 {wait}s 冷却: {url}")
+                    self._record_err("被限频/封禁页 %s" % url)
                     if attempt < max_retry - 1:
                         time.sleep(wait)
-                        continue
-                    return ""
-                # Cloudflare 滑块验证页（vplay/detail 403 时返回）
-                if self._is_slider_page(html):
-                    self._log(f"触发滑块验证，自动绕过中...")
-                    if self._solve_slider_challenge():
-                        resp = self.fetch(url, headers=h, timeout=timeout)
-                        self._extract_cookies(resp)
-                        html = resp.text
-                        if not self._is_slider_page(html):
-                            return html
-                    if attempt < max_retry - 1:
-                        self._log(f"滑块验证后仍被拦截，第{attempt+1}次重试")
                         continue
                     return ""
                 # vplay 页可能多次返回 cookie 挑战页，持续重试直到拿到真实页面
@@ -928,17 +1079,53 @@ class Spider(Spider):
             return html
         except Exception as e:
             self._log(f"请求失败: {url}, {e}")
+            self._record_err("请求异常 %s: %s" % (
+                url.replace("https://", "").replace("http://", "")[:50], self._short_err(e)))
+            # DNS 污染的两种表现: ①解析失败 ②解析到假IP导致SSL证书错误。
+            # 两种都先用加密DNS(DoH)拿真实IP直连重试。
+            try:
+                if self._looks_like_dns_error(e) or self._looks_like_ssl_error(e):
+                    _host = ""
+                    try:
+                        _host = urlsplit(url).netloc.split(':')[0]
+                    except Exception:
+                        pass
+                    if not _host:
+                        _host = urlsplit(self.base_url).netloc.split(':')[0]
+                    if _host and self._install_dns_override(_host):
+                        try:
+                            url = self._current_url(url)
+                            return self.fetch(url, headers=self.headers.copy(), timeout=timeout).text
+                        except Exception as e3:
+                            self._log("DoH直连重试失败: %s" % self._short_err(e3))
+                            e = e3
+            except Exception:
+                pass
+            # DoH 直连仍报 SSL 错误 → 放宽证书校验再试一次
+            try:
+                if self._looks_like_ssl_error(e) and self._install_ssl_bypass():
+                    try:
+                        url = self._current_url(url)
+                        return self.fetch(url, headers=self.headers.copy(), timeout=timeout).text
+                    except Exception as e4:
+                        self._log("放宽校验后重试失败: %s" % self._short_err(e4))
+            except Exception:
+                pass
+            # 网络层异常(超时/连接重置)同样可能是节点故障 → 换节点再试
+            self._switch_node()
             if not self._cookies:
                 self._log("尝试重新获取Cookie...")
                 self._fetch_cookies()
-                try:
-                    return self.fetch(url, headers=h, timeout=timeout).text
-                except Exception as e2:
-                    self._log(f"重试失败: {e2}")
+            try:
+                url = self._current_url(url)
+                return self.fetch(url, headers=self.headers.copy(), timeout=timeout).text
+            except Exception as e2:
+                self._log(f"重试失败: {e2}")
             return ""
 
     def _warmup_vplay_session(self):
-        """预先完成 Cloudflare 滑块验证 + cookie 预热，使后续播放请求一次成功"""
+        """预先访问 vplay 页面完成服务端 cookie 链式预热，使后续真实播放请求一次成功"""
+        # 使用不存在但路径合法的 ID，确保触发服务端 403 校验页
         warmup_url = f"{self.base_url}/vplay/0-0-0.html"
         h = self.headers.copy()
         for attempt in range(2):
@@ -951,13 +1138,6 @@ class Spider(Spider):
                         time.sleep(1.5)
                         continue
                     return False
-                if self._is_slider_page(html):
-                    self._log("vplay 预热触发滑块验证")
-                    if self._solve_slider_challenge():
-                        self._vplay_warmed = True
-                        self._log("vplay 滑块验证通过，会话已就绪")
-                        return True
-                    return False
                 if not self._is_challenge_page(html):
                     self._vplay_warmed = True
                     self._log(f"vplay 会话预热完成，共 {attempt+1} 次请求")
@@ -969,18 +1149,130 @@ class Spider(Spider):
         return False
 
     # ==================== 解析方法 ====================
-    def _extract_img_src(self, img_tag):
-        """从 <img> 标签中提取真实图片 URL，优先 data-original，其次 src"""
-        if not img_tag:
-            return ''
-        m = re.search(r'data-original="([^"]+)"', img_tag)
-        if m:
-            return m.group(1)
-        m = re.search(r'src="([^"]+)"', img_tag)
-        return m.group(1) if m else ''
+    # 备注/更新状态的特征词, 用于把"备注"与"片名"区分开
+    _RE_NOTE = re.compile(
+        r'^(?:更新至|更新到|第[\d一二三四五六七八九十百千]+[集季期]|已完结|完结|全剧集|全集|'
+        r'\d+集全|全\d+集|\d+集|HD|TC|TS|BD|DVD|正片|预告|花絮|彩蛋|\d{4}[-/年])', re.I)
+
+    @staticmethod
+    def _is_placeholder_pic(pic):
+        """判断是否懒加载占位图/装饰图。
+        注意不能在整个 URL 里搜 'load' —— 真图路径常含 /upload/ 会被误杀,
+        只看文件名部分(load.gif / loading.gif / blank.png 等)。"""
+        if not pic or pic.startswith('data:'):
+            return True
+        base = pic.lower().split('/')[-1]
+        return (base.startswith('load') or 'loading' in base
+                or 'placeholder' in base or 'blank' in base or 'pixel' in base)
+
+    def _parse_cards_generic(self, html):
+        """结构无关的卡片解析: 只锚定 /detail/数字.html 链接, 不依赖任何 class 名。
+
+        这类站点常见同一张卡片出现**两个相同 href 的 <a>**(一个包海报+备注,
+        一个包片名)。旧逻辑逐个 <a> 独立解析再去重, 会把海报和片名拆散甚至
+        整条丢弃 -> 主页空白。这里改为按 vod_id 聚合, 各字段取第一个非空值。
+        """
+        cards = {}
+        order = []
+        if not html:
+            return []
+        try:
+            anchor = re.compile(
+                r'<a\b[^>]*?href=["\']?/detail/(\d+)\.html["\']?[^>]*>(.*?)</a>',
+                re.S | re.I)
+            for m in anchor.finditer(html):
+                vid = m.group(1)
+                whole = m.group(0)
+                inner = m.group(2) or ''
+                # 片名有时写在 </a> 之后的兄弟节点里, 顺带取一小段上下文
+                tail = html[m.end():m.end() + 300]
+                c = cards.get(vid)
+                if c is None:
+                    c = {'vod_id': vid, 'vod_name': '', 'vod_pic': '', 'vod_remarks': ''}
+                    cards[vid] = c
+                    order.append(vid)
+
+                # ---- 海报 ----
+                if not c['vod_pic']:
+                    # 懒加载站点(mxone主题) img 的 src 是占位图 load.gif,
+                    # 真图在 data-original/data-src —— 必须先匹配懒加载属性,
+                    # 只有懒加载属性都没有时才退回 src, 否则海报全是占位图
+                    pm = re.search(
+                        r'<img[^>]*(?:data-original|data-src|data-lazy)=["\']([^"\']+)["\']',
+                        inner, re.I)
+                    if not pm:
+                        pm = re.search(r'<img[^>]*\bsrc=["\']([^"\']+)["\']', inner, re.I)
+                    if pm:
+                        pic = pm.group(1).strip()
+                        if pic and not self._is_placeholder_pic(pic):
+                            if pic.startswith('//'):
+                                pic = 'https:' + pic
+                            c['vod_pic'] = pic
+
+                # ---- 片名(优先级: title属性 > *title*容器 > img alt > 文本段) ----
+                if not c['vod_name']:
+                    name = ''
+                    tm = re.search(r'<a\b[^>]*\btitle=["\']([^"\']+)["\']', whole, re.I)
+                    if tm:
+                        name = tm.group(1).strip()
+                    if not name:
+                        # 本 <a> 内部或其后的标题容器
+                        for seg in (inner, tail):
+                            dm = re.search(
+                                r'<(?:div|a|h\d|span|p)[^>]*class=["\'][^"\']*'
+                                r'(?:poster-item-title|item-title|video-title|title|name)[^"\']*'
+                                r'["\'][^>]*>(.*?)</(?:div|a|h\d|span|p)>', seg, re.S | re.I)
+                            if dm:
+                                txt = re.sub(r'<[^>]+>', '', dm.group(1)).strip()
+                                if txt:
+                                    name = txt
+                                    break
+                    if not name:
+                        am = re.search(r'<img[^>]*\balt=["\']([^"\']+)["\']', inner, re.I)
+                        if am:
+                            name = am.group(1).strip()
+                    if not name:
+                        # 文本段里挑第一段"不像备注"的
+                        txt = re.sub(r'<br\s*/?>', '\n', inner, flags=re.I)
+                        txt = re.sub(r'<[^>]+>', '\n', txt)
+                        for seg in txt.split('\n'):
+                            seg = seg.strip()
+                            if seg and not self._RE_NOTE.match(seg):
+                                name = seg
+                                break
+                    if name:
+                        c['vod_name'] = self._clean_vod_name(name)
+
+                # ---- 备注/更新状态 ----
+                if not c['vod_remarks']:
+                    nm = re.search(
+                        r'<[^>]*class=["\'][^"\']*(?:item-note|note|remarks|status)[^"\']*'
+                        r'["\'][^>]*>(.*?)</', inner, re.S | re.I)
+                    note = ''
+                    if nm:
+                        note = re.sub(r'<[^>]+>', '', nm.group(1)).strip()
+                    if not note:
+                        txt = re.sub(r'<br\s*/?>', '\n', inner, flags=re.I)
+                        txt = re.sub(r'<[^>]+>', '\n', txt)
+                        for seg in txt.split('\n'):
+                            seg = seg.strip()
+                            if seg and self._RE_NOTE.match(seg):
+                                note = seg
+                                break
+                    if note:
+                        c['vod_remarks'] = note
+
+            videos = [cards[v] for v in order if cards[v]['vod_name']]
+            return videos
+        except Exception as e:
+            self._log('通用卡片解析异常: %s' % e)
+            return []
 
     def _parse_video_list(self, html):
-        """通用列表解析（首页/分类页）"""
+        """通用列表解析（首页/分类页）: 结构无关解析优先, 旧正则作兜底"""
+        videos = self._parse_cards_generic(html)
+        if videos:
+            return videos
         videos = []
         if not html:
             return videos
@@ -988,14 +1280,16 @@ class Spider(Spider):
         pattern = (
             r'<a[^>]*href="/detail/(\d+\.html)"[^>]*class="[^"]*module-poster-item[^"]*"[^>]*>'
             r'.*?<div[^>]*class="[^"]*module-item-note[^"]*"[^>]*>([^<]*)</div>'
-            r'.*?(<img[^>]*>)'
+            r'.*?<img[^>]*data-original="([^"]+)"[^>]*>'
             r'.*?<div[^>]*class="[^"]*module-poster-item-title[^"]*"[^>]*>([^<]*)</div>'
         )
         for m in re.finditer(pattern, html, re.DOTALL):
             vod_id   = m.group(1).replace(".html", "")
             vod_note = m.group(2).strip()
-            vod_pic  = self._clean_vod_pic(self._extract_img_src(m.group(3)))
+            vod_pic  = m.group(3).strip()
             vod_name = self._clean_vod_name(m.group(4).strip())
+            if vod_pic.startswith("//"):
+                vod_pic = "https:" + vod_pic
             videos.append({
                 "vod_id": vod_id,
                 "vod_name": vod_name,
@@ -1004,19 +1298,21 @@ class Spider(Spider):
             })
 
         if videos:
-            return self._dedup_videos(videos)
+            return videos
 
         pattern2 = (
             r'<a[^>]*href="/detail/(\d+\.html)"[^>]*>'
-            r'.*?(<img[^>]*>)'
+            r'.*?<img[^>]*(?:data-original|src)="([^"]+)"[^>]*>'
             r'.*?<div[^>]*class="[^"]*module-item-note[^"]*"[^>]*>([^<]*)</div>'
             r'.*?<div[^>]*class="[^"]*(?:title|name)[^"]*"[^>]*>([^<]*)</div>'
         )
         for m in re.finditer(pattern2, html, re.DOTALL):
             vod_id   = m.group(1).replace(".html", "")
-            vod_pic  = self._clean_vod_pic(self._extract_img_src(m.group(2)))
+            vod_pic  = m.group(2).strip()
             vod_note = m.group(3).strip()
             vod_name = self._clean_vod_name(m.group(4).strip())
+            if vod_pic.startswith("//"):
+                vod_pic = "https:" + vod_pic
             videos.append({
                 "vod_id": vod_id,
                 "vod_name": vod_name,
@@ -1024,18 +1320,49 @@ class Spider(Spider):
                 "vod_remarks": vod_note,
             })
 
-        return self._dedup_videos(videos)
-
-    def _dedup_videos(self, videos):
-        """按 vod_id 去重，保留首次出现的记录"""
-        seen = set()
-        unique = []
-        for v in videos:
-            vid = v.get("vod_id", "")
-            if vid and vid not in seen:
+        # 3) 兜底: 扁平卡片结构(站点改版后 /detail/ 链接直接挂在 <a> 内,
+        #    标题用 title 属性或 <a> 内文本, 不再依赖嵌套 module-* div)
+        if not videos:
+            seen = set()
+            flat = re.compile(
+                r'<a[^>]*href="/detail/(\d+)\.html"[^>]*>(.*?)</a>', re.DOTALL)
+            for m in flat.finditer(html):
+                vid = m.group(1)
+                if vid in seen:
+                    continue
+                inner = m.group(2)
+                tag = m.group(0)
+                # 标题优先 title 属性, 否则取 <a> 内最后一个文本段
+                # 先按 <br> 切分再各自去标签(避免先去标签导致 <br> 消失无法分段)
+                tm = re.search(r'title="([^"]*)"', tag)
+                if tm and tm.group(1).strip():
+                    name = self._clean_vod_name(tm.group(1).strip())
+                else:
+                    segs = [self._clean_vod_name(re.sub(r'<[^>]+>', '', p).strip())
+                            for p in re.split(r'<br\s*/?>|\n', inner)]
+                    segs = [s for s in segs if s]
+                    name = segs[-1] if segs else ""
+                if not name:
+                    continue
+                pm = re.search(r'data-original="([^"]+)"', inner) or re.search(r'src="([^"]+)"', inner)
+                pic = pm.group(1).strip() if pm else ""
+                if pic and self._is_placeholder_pic(pic):
+                    pic = ""
+                if pic.startswith("//"):
+                    pic = "https:" + pic
+                # 备注取 <a> 内第一段文本(如有"备注<br>标题"两行)
+                segs2 = [re.sub(r'<[^>]+>', '', p).strip() for p in re.split(r'<br\s*/?>|\n', inner)]
+                segs2 = [s for s in segs2 if s]
+                note = segs2[0] if len(segs2) > 1 else ""
+                videos.append({
+                    "vod_id": vid,
+                    "vod_name": name,
+                    "vod_pic": pic,
+                    "vod_remarks": note,
+                })
                 seen.add(vid)
-                unique.append(v)
-        return unique
+
+        return videos
 
     def _parse_search_list(self, html):
         """搜索页专用解析（匹配整个 module-card-item 块，避免嵌套 div 重复）"""
@@ -1069,11 +1396,10 @@ class Spider(Spider):
             title = re.search(r'<div[^>]*class="[^"]*module-card-item-title[^"]*"[^>]*>.*?<strong>([^<]*)</strong>', block, re.DOTALL)
             vod_name = self._clean_vod_name(title.group(1).strip()) if title else "未知"
 
-            pic_tag = re.search(r'<img[^>]*>', block)
-            if pic_tag:
-                vod_pic = self._clean_vod_pic(self._extract_img_src(pic_tag.group(0)))
-            else:
-                vod_pic = ""
+            pic = re.search(r'<img[^>]*data-original="([^"]+)"', block)
+            vod_pic = pic.group(1) if pic else ""
+            if vod_pic.startswith("//"):
+                vod_pic = "https:" + vod_pic
 
             note = re.search(r'<div[^>]*class="[^"]*module-item-note[^"]*"[^>]*>([^<]*)</div>', block)
             vod_remarks = note.group(1).strip() if note else ""
@@ -1097,7 +1423,7 @@ class Spider(Spider):
                 video["vod_type"] = ctype.group(1).strip()
 
             videos.append(video)
-        return self._dedup_videos(videos)
+        return videos
 
     def _parse_play_sources(self, html, vod_id):
         """解析播放线路与集数"""
@@ -1219,6 +1545,26 @@ class Spider(Spider):
                     self._log(f"player_aaaa花括号解析失败: {e}")
         return None
 
+    def _resilient_post(self, url, data=None, headers=None, timeout=8):
+        """带DNS修复的POST: 解密API域名也可能被DNS污染(表现为SSL证书错误),
+        失败时用加密DNS拿真实IP重试, 仍失败再放宽证书校验重试。"""
+        try:
+            return self.post(url, data=data, headers=headers, timeout=timeout)
+        except Exception as e1:
+            self._log("POST失败: %s %s" % (url.split('/')[2] if '//' in url else url,
+                                          self._short_err(e1)))
+            self._record_err("POST %s: %s" % (
+                url.split('/')[2] if '//' in url else url[:40], self._short_err(e1)))
+            try:
+                _host = urlsplit(url).netloc.split(':')[0]
+                if self._install_dns_override(_host):
+                    return self.post(url, data=data, headers=headers, timeout=timeout)
+            except Exception as e2:
+                self._log("DoH直连POST仍失败: %s" % self._short_err(e2))
+                if self._looks_like_ssl_error(e2) and self._install_ssl_bypass():
+                    return self.post(url, data=data, headers=headers, timeout=timeout)
+            raise e1
+
     def _get_play_url(self, vod_id, sid, nid):
         play_page = f"{self.base_url}/vplay/{vod_id}-{sid}-{nid}.html"
         cache_key = f"{vod_id}-{sid}-{nid}"
@@ -1236,16 +1582,19 @@ class Spider(Spider):
             # vplay 页预热后通常 1-2 次可成功，控制总耗时
             html = self._get(play_page, max_retry=2, timeout=6)
             if not html:
+                self._record_err("播放:vplay页无响应(网络失败)")
                 self._log(f"播放页无响应, 使用 WebView 兜底: {play_page}")
                 return play_page
 
             # 如果仍是挑战页，直接走 WebView
             if self._is_challenge_page(html):
+                self._record_err("播放:vplay页返回挑战页")
                 self._log(f"播放页仍被拦截, 使用 WebView 兜底: {play_page}")
                 return play_page
 
             player_data = self._extract_player_aaaa(html)
             if not player_data:
+                self._record_err("播放:vplay页未提取到播放数据(HTML长度%d)" % len(html))
                 self._log("未能提取到player_aaaa, 使用 WebView 兜底")
                 return play_page
 
@@ -1274,140 +1623,98 @@ class Spider(Spider):
                 self._play_cache[cache_key] = (enc_url, now)
                 return enc_url
 
-            # 调用 850088 解析 API，直接拿 m3u8/mp4 直链，完全绕过 WebView
-            direct_url = None
-            for attempt in range(3):
-                try:
-                    direct_url = self._resolve_850088_direct(enc_url, player_data)
-                    if direct_url:
-                        self._log(f"850088解析成功(第{attempt+1}次): {direct_url[:80]}")
-                        self._play_cache[cache_key] = (direct_url, now)
-                        return direct_url
-                except Exception as e:
-                    self._log(f"850088解析异常(第{attempt+1}次): {e}")
-                if attempt < 2:
-                    time.sleep(0.8)
+            # 调用解析域名 API 解密
+            try:
+                domain = self.PARSE_DOMAIN
+                l = (self._md5(enc_url) + " P")[-22:]
+                key = l.encode('utf-8')
+                h = self._rc4_encrypt(self._md5(enc_url + "stray"), key)
+                timestamp = str(int(time.time()))
+                u = self._rc4_encrypt(timestamp + self._md5(key.decode('utf-8') + "stray"), key)
+                y = self._rc4_encrypt(self._md5(domain + "stray"), key)
 
-            # 兜底：返回 vplay 页面（壳子 WebView 加载本站页面，JS 自动解密播放）
-            self._log(f"850088解析失败, 使用vplay页面兜底: {play_page[:80]}")
-            self._play_cache[cache_key] = (play_page, now)
-            return play_page
+                api_url = f"https://{domain}/player/api.php"
+                api_headers = {
+                    "User-Agent": self.play_headers["User-Agent"],
+                    "Accept": "application/json, text/javascript, */*; q=0.01",
+                    "Origin": f"https://{domain}",
+                    "Referer": f"https://{domain}/player/?url={enc_url}",
+                    "X-Requested-With": "XMLHttpRequest",
+                    "Content-Type": "application/x-www-form-urlencoded"
+                }
+
+                post_data = {"url": enc_url, "key": h, "vkey": u, "ckey": y}
+                resp = self._resilient_post(api_url, data=post_data, headers=api_headers, timeout=8)
+                result = json.loads(resp.text)
+                self._log(f"API返回: code={result.get('code')}, type={result.get('type')}")
+
+                if result.get("code") == 200:
+                    aes_key = self._rc4_decrypt(result["aes_key"], key)
+                    aes_iv = self._rc4_decrypt(result["aes_iv"], key)
+                    play_url = self._aes_decrypt(result["url"], aes_key, aes_iv)
+                    self._record_err("播放:解密成功直链:%s" % play_url[:60])
+                    self._log(f"解密成功: {play_url[:80]}...")
+                    self._play_cache[cache_key] = (play_url, now)
+                    return play_url
+                else:
+                    # 站点解析接口对该源返回 404，回退到本站解析页（WebView 可播）
+                    fallback = f"https://{self.PARSE_DOMAIN}/player/?url={enc_url}"
+                    self._record_err("播放:解密API返回%s,走解析页" % result.get("code"))
+                    self._log(f"API返回非200，使用解析页兜底: {fallback[:80]}...")
+                    self._play_cache[cache_key] = (fallback, now)
+                    return fallback
+            except Exception as e:
+                self._record_err("播放:解密API异常:%s" % self._short_err(e))
+                self._log(f"解密异常: {e}")
+                return play_page
 
         except Exception as e:
             self._log(f"获取播放地址异常: {e}")
             return play_page
 
-    def _resolve_850088_direct(self, token, player_data):
-        """逆向 850088 解析站：直接调用 API 拿到 AES 加密的直链，本地解密返回 m3u8/mp4 直链。
-        算法链：
-        1. calculate(s) = (MD5(s) + ' P')[-22:]        → 22 字符的 RC4 密钥
-        2. calculatee(s) = MD5(s).hex()                 → 32 字符的 MD5
-        3. enplay(url, s) = base64(RC4(calculate(url), s))  → 加密验证参数
-        4. keyValue = enplay(calculatee(urlValueurl + 'stray'))
-        5. vkeyValue = enplay(str(time) + calculatee(calculate(urlValueurl) + 'stray'))
-        6. ckeyValue = enplay(calculatee(host + 'stray'))
-        7. POST api.php → 返回 {url: AES加密直链, aes_key, aes_iv}
-        8. decrypt(url) = AES-CBC(base64_decode(url), RC4-decode(aes_key), RC4-decode(aes_iv))
-        """
-        domain = self.PARSE_DOMAIN
-        link_next = player_data.get("link_next", "")
-        vod_name = player_data.get("vod_name", "") or player_data.get("vod_data", {}).get("vod_name", "")
-        # 850088 API 要求 next 为空，否则返回 404（浏览器 iframe 也是 next=//）
-        url_value = token + "&next=//&title=" + str(vod_name)
-        host = domain
-        t = int(time.time())
-
-        def _calc(s):
-            """calculate: (MD5(s) + ' P')[-22:]"""
-            md5hex = hashlib.md5(s.encode('utf-8')).hexdigest()
-            return (md5hex + ' P')[-22:]
-
-        def _calc_e(s):
-            """calculatee: MD5(s).hex()"""
-            return hashlib.md5(s.encode('utf-8')).hexdigest()
-
-        def _enplay(u, s):
-            """enplay: base64(RC4(calculate(u), s))"""
-            key = _calc(u)
-            return base64.b64encode(_rc4_crypt(s.encode('utf-8'), key.encode('utf-8'))).decode('utf-8')
-
-        def _deplay(u, s):
-            """deplay: RC4(calculate(u), base64_decode(s))"""
-            key = _calc(u)
-            return _rc4_crypt(base64.b64decode(s), key.encode('utf-8'))
-
-        key_val = _enplay(url_value, _calc_e(url_value + 'stray'))
-        vkey_val = _enplay(url_value, str(t) + _calc_e(_calc(url_value) + 'stray'))
-        ckey_val = _enplay(url_value, _calc_e(host + 'stray'))
-
-        api_url = f"https://{domain}/player/api.php"
-        # Referer 头不能含未编码的中文，需对中文做 percent-encoding
-        referer_url_value = urllib.parse.quote(url_value, safe='&=/')
-        referer = f"https://{domain}/player/?url={referer_url_value}"
-        # 手动构造 POST body 并编码为 UTF-8 bytes（含中文标题，requests 默认 latin-1 会失败）
-        post_body = urllib.parse.urlencode({
-            'url': url_value,
-            'key': key_val,
-            'vkey': vkey_val,
-            'ckey': ckey_val,
-        }).encode('utf-8')
-        # 使用独立请求（不共享 session 的 Cookie/Referer），避免 v.wbbb1.com 的 Cookie 导致 850088 返回 404
-        resp = requests.post(
-            api_url,
-            data=post_body,
-            headers={
-                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
-                'Referer': referer,
-                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-                'Accept': '*/*',
-            },
-            timeout=10,
-            verify=False,
-        )
-        api_body = resp.text
-        if resp.status_code != 200 or not api_body.strip():
-            self._log(f"850088 API 非200响应: status={resp.status_code}, body={api_body[:150]}")
-            return None
-        try:
-            api_data = json.loads(api_body)
-        except Exception as e:
-            self._log(f"850088 API 响应非JSON: {api_body[:200]}")
-            return None
-
-        if api_data.get('code') != 200:
-            self._log(f"850088 API 返回非200: {api_body[:200]}")
-            return None
-
-        enc_url = api_data.get('url', '')
-        aes_key_b64 = api_data.get('aes_key', '')
-        aes_iv_b64 = api_data.get('aes_iv', '')
-        if not enc_url or not aes_key_b64 or not aes_iv_b64:
-            return None
-
-        aes_key = _deplay(url_value, aes_key_b64)
-        aes_iv = _deplay(url_value, aes_iv_b64)
-        encrypted_bytes = base64.b64decode(enc_url)
-
-        try:
-            if CRYPTO_OK:
-                cipher = AES.new(aes_key, AES.MODE_CBC, aes_iv)
-                decrypted = unpad(cipher.decrypt(encrypted_bytes), AES.block_size)
-            else:
-                decrypted = _PureAES(aes_key).decrypt_cbc(encrypted_bytes, aes_iv)
-            result = decrypted.decode('utf-8')
-            if result.startswith('http'):
-                return result
-            self._log(f"850088 解密结果非URL: {result[:100]}")
-            return None
-        except Exception as e:
-            self._log(f"850088 AES解密失败: {e}")
-            return None
-
     # ==================== TVBox五大核心方法 ====================
     def init(self, extend=''):
+        # 支持在壳子"源配置/扩展"里手动指定可用域名。
+        # 浏览器能打开哪个地址, 就把它填进来, 立即生效, 不必等自动探测。
+        # 写法: https://wbbb1.com  或  {"host":"https://wbbb1.com"}
+        # 也支持一次给多个, 用逗号隔开: https://a.com,https://b.com
+        manual = []
+        try:
+            ext = (extend or '').strip()
+            if ext:
+                cfg = None
+                if ext.startswith('{'):
+                    try:
+                        cfg = json.loads(ext)
+                    except Exception:
+                        cfg = None
+                if isinstance(cfg, dict):
+                    raw = cfg.get('host') or cfg.get('site') or cfg.get('domain') \
+                          or cfg.get('url') or cfg.get('base_url') or ''
+                    manual = [x.strip() for x in str(raw).replace('，', ',').split(',') if x.strip()]
+                else:
+                    manual = [x.strip() for x in ext.replace('，', ',').split(',') if x.strip()]
+        except Exception as e:
+            self._log("解析扩展配置失败: %s" % e)
+        nodes = []
+        for u in manual:
+            if not u.startswith('http'):
+                u = 'https://' + u
+            u = u.rstrip('/')
+            if u not in nodes:
+                nodes.append(u)
+        if nodes:
+            # 手动指定的节点提到最前, 并立即设为当前节点
+            for n in (self._nodes or []):
+                if n not in nodes:
+                    nodes.append(n)
+            self._nodes = nodes
+            self._nodes_discovered = True   # 已有人工配置, 不再覆盖
+            self._set_node(0)
+            self._log("使用手动指定节点: %s" % self.base_url)
         self._fetch_cookies()
         # vplay 预热改为懒加载，减少初始化请求，降低触发风控的概率
-        self._log("初始化完成")
+        self._log("初始化完成, 当前节点: %s" % self.base_url)
 
     def homeContent(self, filter=False):
         result = {
@@ -1422,21 +1729,261 @@ class Spider(Spider):
             result["filter"] = self.FILTERS
         return result
 
+    def _maccms_api(self, params):
+        """maccms 通用 JSON 接口兜底: /api.php/provide/vod/
+
+        首页/分类/搜索走 HTML 解析, 一旦站点改成 JS 渲染或卡片结构变动,
+        HTML 解析就会取不到 -> 主页空白。这个接口是服务端直出 JSON,
+        不依赖 JS、不依赖 class 名, 字段(vod_id/vod_name/vod_pic/vod_remarks)稳定。
+        仅在 HTML 解析为空时作为兜底调用, 不影响原 HTML 路径。
+        返回 (list, total, pagecount)。
+        """
+        try:
+            base = self.base_url.rstrip('/') + "/api.php/provide/vod/"
+            qs = ""
+            for k, v in params.items():
+                if v is None or v == "":
+                    continue
+                qs += ("&" if qs else "") + "%s=%s" % (k, quote(str(v), safe=""))
+            full = base + ("?" + qs if qs else "")
+            body = self._get(full)
+            if not body or not body.strip().startswith("{"):
+                self._log("maccms API 无 JSON 返回, 走原路径")
+                return [], 0, 1
+            try:
+                data = json.loads(body)
+            except Exception:
+                self._log("maccms API JSON 解析失败")
+                return [], 0, 1
+            if not isinstance(data, dict) or data.get("code") not in (1, "1"):
+                self._log("maccms API 未开放或被拒: code=%s msg=%s" % (data.get("code"), str(data.get("msg"))[:60]))
+                return [], 0, 1
+            lst = []
+            for it in (data.get("list") or []):
+                if not isinstance(it, dict):
+                    continue
+                vid = str(it.get("vod_id") or "").strip()
+                name = self._clean_vod_name(str(it.get("vod_name") or "").strip())
+                if not vid or not name:
+                    continue
+                pic = str(it.get("vod_pic") or "").strip()
+                if pic.startswith("//"):
+                    pic = "https:" + pic
+                lst.append({
+                    "vod_id": vid,
+                    "vod_name": name,
+                    "vod_pic": pic,
+                    "vod_remarks": str(it.get("vod_remarks") or "").strip(),
+                })
+            try:
+                pc = int(data.get("pagecount") or 1)
+            except Exception:
+                pc = 1
+            try:
+                tot = int(data.get("total") or 0)
+            except Exception:
+                tot = 0
+            self._log("maccms API 命中: %d 条, pagecount=%d" % (len(lst), pc))
+            return lst, tot, pc
+        except Exception as e:
+            self._log("maccms API 异常: %s" % e)
+            return [], 0, 1
+
+    def _record_err(self, msg):
+        """记录最近错误(保留8条), 供诊断页在设备上直接展示。"""
+        try:
+            line = "%s %s" % (time.strftime("%H:%M:%S"), str(msg)[:150])
+            self._err_log.append(line)
+            if len(self._err_log) > 8:
+                self._err_log = self._err_log[-8:]
+        except Exception:
+            pass
+
+    @staticmethod
+    def _short_err(e):
+        """把底层异常翻译成一行短句, 保证在壳子选集里显示完整不截断。"""
+        m = str(e)
+        low = m.lower()
+        if ("name or service not known" in low or "getaddrinfo" in low
+                or "no address associated" in low
+                or "temporary failure" in low or "nodename nor servname" in low):
+            return "DNS解析失败(域名解析不出来,系统DNS被污染或断网)"
+        if "timed out" in low or "timeout" in low or "timed out" in m:
+            return "连接超时"
+        if "refused" in low:
+            return "连接被拒绝(端口不通)"
+        if "reset" in low:
+            return "连接被重置(疑似SNI拦截)"
+        if "unreachable" in low:
+            return "网络不可达"
+        if "certificate" in low or "ssl" in low:
+            return "SSL证书错误"
+        return m[:60]
+
+    # DoH 解析结果缓存: host -> [ip,...]  (类级共享, 跨实例有效)
+    DNS_OVERRIDES = {}
+
+    @staticmethod
+    def _looks_like_dns_error(e):
+        low = str(e).lower()
+        return any(k in low for k in (
+            "name or service not known", "getaddrinfo", "no address associated",
+            "temporary failure in name resolution", "nodename nor servname",
+            "errno -2", "[errno 8]")) and "ssl" not in low and "certificate" not in low
+
+    @staticmethod
+    def _looks_like_ssl_error(e):
+        low = str(e).lower()
+        return any(k in low for k in (
+            "certificate", "ssl", "handshake", "hostname mismatch", "tls"))
+
+    def _doh_resolve(self, host):
+        """通过加密DNS(阿里/腾讯DoH, 走IP直连不需要DNS)解析域名真实IP。"""
+        endpoints = [
+            "http://223.5.5.5/resolve?name=%s&type=A" % host,
+            "http://120.53.53.53/dns-query?name=%s&type=A" % host,
+        ]
+        for u in endpoints:
+            try:
+                resp = self.fetch(u, headers={"accept": "application/dns-json"}, timeout=5)
+                data = json.loads(resp.text or "{}")
+                ips = [str(a.get("data")) for a in (data.get("Answer") or [])
+                       if a.get("type") == 1 and re.match(r"^\d+\.\d+\.\d+\.\d+$", str(a.get("data", "")))]
+                if ips:
+                    self._log("DoH解析 %s -> %s" % (host, ",".join(ips)))
+                    return ips
+            except Exception as e:
+                self._log("DoH[%s]失败: %s" % (u.split('/')[2], self._short_err(e)))
+        return []
+
+    def _install_dns_override(self, host):
+        """系统DNS解析失败时, 用DoH拿到真实IP并接管本域名的DNS解析。"""
+        try:
+            if host in self.DNS_OVERRIDES:
+                return bool(self.DNS_OVERRIDES[host])
+            ips = self._doh_resolve(host)
+            self.DNS_OVERRIDES[host] = ips
+            if not ips:
+                return False
+            import socket as _socket
+            orig = _socket.getaddrinfo
+            if getattr(orig, "_wbbb_patched", False):
+                return True
+            overrides = self.DNS_OVERRIDES
+
+            def patched(hname, *a, **kw):
+                try:
+                    if isinstance(hname, str) and overrides.get(hname):
+                        hname = overrides[hname][0]
+                except Exception:
+                    pass
+                return orig(hname, *a, **kw)
+
+            patched._wbbb_patched = True
+            _socket.getaddrinfo = patched
+            self._log("已接管 %s 的DNS解析 -> %s" % (host, ips[0]))
+            return True
+        except Exception as e:
+            self._log("DNS接管失败: %s" % self._short_err(e))
+            return False
+
+    def _install_ssl_bypass(self):
+        """最后的保险: 证书校验全部失败时放宽本运行时的 https 校验。
+        仅在 DoH 直连仍报 SSL 错误时才会走到这里。"""
+        try:
+            import ssl as _ssl
+            if getattr(_ssl, "_wbbb_bypass", False):
+                return True
+            orig = _ssl._create_default_https_context
+
+            def patched(purpose=None, *a, **kw):
+                ctx = orig(_ssl.Purpose.SERVER_AUTH) if purpose is None else orig(purpose, *a, **kw)
+                try:
+                    ctx.check_hostname = False
+                    ctx.verify_mode = _ssl.CERT_NONE
+                except Exception:
+                    pass
+                return ctx
+
+            _ssl._create_default_https_context = patched
+            _ssl._wbbb_bypass = True
+            self._log("已放宽HTTPS证书校验(应对证书劫持)")
+            return True
+        except Exception as e:
+            self._log("放宽校验失败: %s" % self._short_err(e))
+            return False
+
+    def _make_diag_card(self):
+        """主页彻底加载失败时展示的诊断卡片。"""
+        return {
+            "vod_id": "diag",
+            "vod_name": "⚠️ 源站加载失败 · 点我查看诊断",
+            "vod_pic": "",
+            "vod_remarks": "点击查看原因",
+        }
+
+    def _diag_detail(self):
+        """诊断卡片的详情页: 壳子简介区只显示一行,
+        所以把每条诊断信息作为一集放在"选集"里, 一屏截图即可看全。
+        点播放无效是正常的, 只需要看文字。"""
+        errs = self._err_log[-6:]
+        eps = [
+            "节点:%s" % self.base_url,
+            "候选:%s" % (",".join(n.replace("https://", "") for n in (self._nodes or ["?"]))),
+        ]
+        if errs:
+            eps += ["%d.%s" % (i + 1, e) for i, e in enumerate(errs)]
+        else:
+            eps.append("无错误记录(可能解析为空)")
+        if self._last_diag:
+            eps.append("最新:%s" % self._last_diag[:160])
+        eps.append("请截图本页发修复者")
+        play_url = "#".join("%s$%d" % (e, i + 1) for i, e in enumerate(eps))
+        return {"list": [{
+            "vod_id": "diag",
+            "vod_name": "⚠️ 源站加载失败 · 诊断信息",
+            "vod_pic": "",
+            "vod_remarks": "看下方选集文字",
+            "vod_content": "诊断信息在下方【选集】里，每一条是一行报错，请整页截图发给我。点播放无效属正常。",
+            "vod_play_from": "诊断结果",
+            "vod_play_url": play_url,
+        }]}
+
     def homeVideoContent(self):
         try:
             html = self._get(self.base_url)
+            videos = self._parse_video_list(html) if html else []
+            if videos:
+                # 成功才刷新缓存; 源站抖动时用它兜底, 主页不再空白
+                self._home_cache = videos[:20]
+                self._home_cache_time = time.time()
+                self._last_diag = ""
+                return {"list": videos[:20]}
+            # 区分两类根因, 便于一次性定位:
+            if html:
+                # 网络通但解析不出 → 页面结构变了(或被拦截返回了挑战页)
+                self._last_diag = "网络正常但解析为空, HTML长度=%d" % len(html)
+                self._log(self._last_diag)
+                self._log("页面片段: %s" % re.sub(r'\s+', ' ', html)[:400])
+            # HTML 解析为空 → 走 maccms JSON 接口兜底(不依赖 JS/结构)
+            api_list, _, _ = self._maccms_api({"ac": "list", "pg": "1"})
+            if api_list:
+                self._home_cache = api_list[:20]
+                self._home_cache_time = time.time()
+                self._last_diag = ""
+                self._log("首页走 maccms API 兜底成功")
+                return {"list": api_list[:20]}
             if not html:
-                return {"list": []}
-            block = re.search(r'<div class="module">.*?<h2[^>]*class="[^"]*module-title[^"]*"[^>]*>正在热映.*?</div>(.*?)</div>\s*<div class="module">', html, re.DOTALL)
-            if not block:
-                block = re.search(r'<div class="module">(.*?)</div>\s*<div class="module">', html, re.DOTALL)
-            if not block:
-                return {"list": []}
-            videos = self._parse_video_list(block.group(1))
-            return {"list": videos[:20]}
+                self._log("首页为空, 最近诊断: %s" % (self._last_diag or "无"))
         except Exception as e:
             self._log(f"homeVideoContent异常: {e}")
-            return {"list": []}
+        # 所有节点都失败/解析为空 → 返回最近一次成功数据(24h 内)
+        if self._home_cache and (time.time() - self._home_cache_time) < 86400:
+            self._log("源站暂不可用, 使用首页缓存兜底")
+            return {"list": self._home_cache}
+        # 彻底失败 → 返回一张诊断卡片, 点开详情即可看到真实报错,
+        # 便于在设备上一眼定位(不用再猜/录屏)。
+        return {"list": [self._make_diag_card()]}
 
     def _quote_filter_value(self, v):
         """对筛选值统一编码，避免壳子传中文时 URL 拼接错误；已编码的值不二次编码。"""
@@ -1467,6 +2014,15 @@ class Spider(Spider):
             if str(tid) not in self.CATEGORY_NAMES:
                 return {"list": [], "page": pg, "pagecount": 1, "limit": 20, "total": 0}
 
+            # 🔧诊断分类: 主动触发一次首页请求, 汇总网络状态, 点卡片看详情
+            if str(tid) == "999":
+                try:
+                    self._get(self.base_url)
+                except Exception:
+                    pass
+                diag = self._make_diag_card()
+                return {"list": [diag], "page": pg, "pagecount": 1, "limit": 20, "total": 1}
+
             flt = {}
             if content:
                 try:
@@ -1474,43 +2030,59 @@ class Spider(Spider):
                 except Exception:
                     flt = {}
 
-            # 跨页去重：用筛选组合的签名作为 key
-            sig_key = str((tid, flt.get("class", ""), flt.get("area", ""),
-                          flt.get("year", ""), flt.get("lang", ""), flt.get("letter", "")))
-
             url = self._build_show_url(tid, pg, flt)
             self._log(f"分类请求: {url}")
             html = self._get(url)
+            videos = self._parse_video_list(html) if html else []
             if not html:
-                return {"list": [], "page": pg, "pagecount": 1, "limit": 20, "total": 0}
-            videos = self._parse_video_list(html)
+                self._last_diag = "分类[%s]请求无返回(网络被拦/节点故障): %s" % (tid, url)
+            elif not videos:
+                self._last_diag = "分类[%s]页面已取到但解析为空(HTML长度=%d)" % (tid, len(html))
 
-            # 跨页去重：累积所有已看过的 vod_id，过滤当前页中与之前重复的项
-            prev_ids = set(self._CAT_PAGEMARK.get(sig_key, []))
-            if prev_ids:
-                before_count = len(videos)
-                videos = [v for v in videos if v.get("vod_id") not in prev_ids]
-                if before_count > len(videos):
-                    self._log(f"跨页去重: 第{pg}页过滤掉 {before_count - len(videos)} 条重复项")
+            if videos:
+                # 优先展示已有实际片源的内容（更新至/完结/HD/正片等），
+                # 把只有上映日期的未来片源适当降级，提升“最新更新优先”的体验。
+                def _release_sort_score(v):
+                    note = v.get('vod_remarks', '')
+                    if re.match(r'^\d{4}年\d{2}月\d{2}日上映$', note):
+                        return 2
+                    if '上映' in note and not any(m in note for m in ('更新至', '已完结', 'HD', '1080P', '正片', '全', '集')):
+                        return 1
+                    return 0
+                videos = sorted(videos, key=_release_sort_score)
+                # 尾页链接可能带筛选参数，用更宽松的正则
+                last = re.search(r'<a[^>]*href="/show/\d+(?:-[^"]*?)?-{0,1}(\d+)---\.html"[^>]*>尾页</a>', html)
+                pagecount = int(last.group(1)) if last else 1
+                return {
+                    "list": videos,
+                    "page": pg,
+                    "pagecount": pagecount,
+                    "limit": 20,
+                    "total": pagecount * 20
+                }
 
-            # 累积当前页的 vod_id，供后续页去重
-            cur_ids = [v.get("vod_id") for v in videos if v.get("vod_id")]
-            prev_ids.update(cur_ids)
-            self._CAT_PAGEMARK[sig_key] = list(prev_ids)
-
-            # 尾页链接可能带筛选参数，用更宽松的正则
-            last = re.search(r'<a[^>]*href="/show/\d+(?:-[^"]*?)?-{0,1}(\d+)---\.html"[^>]*>尾页</a>', html)
-            pagecount = int(last.group(1)) if last else 1
-            return {
-                "list": videos,
-                "page": pg,
-                "pagecount": pagecount,
-                "limit": 20,
-                "total": pagecount * 20
-            }
+            # HTML 解析为空(改版/JS渲染/被拦) → maccms JSON 接口兜底
+            # 仅在无筛选条件时兜底(API 不支持站点的自定义筛选 schema)
+            if not flt:
+                api_params = {"ac": "list", "t": str(tid), "pg": str(pg)}
+                api_list, _, api_pc = self._maccms_api(api_params)
+                if api_list:
+                    self._log("分类[%s]走 maccms API 兜底成功" % tid)
+                    return {
+                        "list": api_list,
+                        "page": pg,
+                        "pagecount": api_pc,
+                        "limit": 20,
+                        "total": api_pc * 20
+                    }
+            # 分类也彻底失败 → 同样返回诊断卡, 避免只能看到无声空白
+            diag = self._make_diag_card()
+            return {"list": [diag], "page": pg, "pagecount": 1, "limit": 20, "total": 1}
         except Exception as e:
             self._log(f"categoryContent异常: {e}")
-            return {"list": [], "page": pg, "pagecount": 1, "limit": 20, "total": 0}
+            self._last_diag = "categoryContent异常: %s" % e
+            diag = self._make_diag_card()
+            return {"list": [diag], "page": pg, "pagecount": 1, "limit": 20, "total": 1}
 
     def searchContent(self, key, quick=False, pg="1"):
         """站点搜索，签名与 duoduo.py 保持一致，确保 FongMi 聚合搜索正确调用"""
@@ -1522,15 +2094,6 @@ class Spider(Spider):
         if not keyword:
             return {"page": pg, "pagecount": 1, "limit": 0, "total": 0, "list": []}
         is_quick = bool(quick)
-
-        # 搜索缓存：同一关键词+页码 60 秒内直接返回缓存
-        cache_key = f"{keyword}_{pg}_{is_quick}"
-        now = time.time()
-        cached = self._SEARCH_CACHE.get(cache_key)
-        if cached and now - cached[0] < self._SEARCH_CACHE_TTL:
-            self._log(f"搜索缓存命中: {keyword} p{pg}")
-            return cached[1]
-
         encoded_key = quote(keyword)
         # 构造分页 URL：第 11 段为 page，其余为空
         page_part = str(pg) if pg > 1 else ""
@@ -1540,17 +2103,18 @@ class Spider(Spider):
         try:
             html = ""
             for attempt in range(2):
-                # 搜索场景缩短超时到 6s，重试2次即可
-                html = self._get(url, max_retry=2, timeout=6)
+                html = self._get(url)
                 # 出现验证页就走验证(含会话过期后重新出现的情况)
                 if self._is_verify_page(html):
                     self._verify_passed = False
                     self._log(f"搜索页触发安全验证，自动识别中 (第{attempt+1}次)...")
                     if self._solve_search_verify():
-                        # 验证通过后再重新搜索
-                        html = self._get(url, max_retry=2, timeout=6)
+                        # 验证通过后等站点要求的 3 秒搜索间隔再重新搜索
+                        time.sleep(2)
+                        html = self._get(url)
                     else:
-                        html = self._get(url, max_retry=1, timeout=6)
+                        time.sleep(3)
+                        html = self._get(url)
                     # 若仍是限制页，继续下一轮重试
                     if self._is_verify_page(html):
                         continue
@@ -1558,8 +2122,19 @@ class Spider(Spider):
                     break
 
             if not html or self._is_verify_page(html):
+                videos = []
+            else:
+                videos = self._parse_search_list(html)
+
+            # HTML 搜索无结果(验证拦截/改版/JS渲染/聚合超时) → maccms API 兜底
+            if not videos:
+                api_list, _, _ = self._maccms_api({"ac": "detail", "wd": keyword, "pg": str(pg)})
+                if api_list:
+                    self._log("搜索[%s]走 maccms API 兜底成功" % keyword)
+                    videos = api_list
+
+            if not videos:
                 return {"list": [], "page": pg, "pagecount": 1, "limit": 20, "total": 0}
-            videos = self._parse_search_list(html)
 
             # quick（快速/聚合搜索）模式下直接返回结果，减少壳子聚合等待
             if not is_quick:
@@ -1576,16 +2151,13 @@ class Spider(Spider):
                     return 3
                 videos = sorted(videos, key=_sort_score)
 
-            result = {
+            return {
                 "list": videos,
                 "page": pg,
                 "pagecount": 9999,
                 "limit": 20,
                 "total": 999999
             }
-            # 写入缓存
-            self._SEARCH_CACHE[cache_key] = (time.time(), result)
-            return result
         except Exception as e:
             self._log(f"搜索Content异常: {e}")
             return {"list": [], "page": pg, "pagecount": 1, "limit": 20, "total": 0}
@@ -1593,6 +2165,9 @@ class Spider(Spider):
     def detailContent(self, ids):
         try:
             vod_id = ids[0] if isinstance(ids, list) else str(ids)
+            # 诊断卡片: 直接返回诊断信息, 不访问源站
+            if str(vod_id) == "diag":
+                return self._diag_detail()
             url = f"{self.base_url}/detail/{vod_id}.html"
             self._log(f"详情请求: {url}")
             html = self._get(url)
@@ -1604,21 +2179,16 @@ class Spider(Spider):
 
             vod_pic = ""
             for pattern in [
-                r'<div[^>]*class="[^"]*module-item-pic[^"]*"[^>]*>(.*?)</div>',
+                r'<div[^>]*class="[^"]*module-item-pic[^"]*"[^>]*>.*?<img[^>]*data-original="([^"]+)"',
+                r'<img[^>]*data-original="([^"]+)"[^>]*class="[^"]*cover[^"]*"',
+                r'<img[^>]*src="([^"]+)"[^>]*class="[^"]*cover[^"]*"',
             ]:
-                pic_block = re.search(pattern, html, re.DOTALL)
-                if pic_block:
-                    img_tag = re.search(r'<img[^>]*>', pic_block.group(1))
-                    if img_tag:
-                        vod_pic = self._clean_vod_pic(self._extract_img_src(img_tag.group(0)))
-                        if vod_pic:
-                            break
-            if not vod_pic:
-                img_tag = re.search(r'<img[^>]*class="[^"]*cover[^"]*"[^>]*>', html)
-                if not img_tag:
-                    img_tag = re.search(r'<img[^>]*>', html)
-                if img_tag:
-                    vod_pic = self._clean_vod_pic(self._extract_img_src(img_tag.group(0)))
+                pic = re.search(pattern, html, re.DOTALL)
+                if pic:
+                    vod_pic = pic.group(1)
+                    break
+            if vod_pic.startswith("//"):
+                vod_pic = "https:" + vod_pic
 
             desc = re.search(r'<div[^>]*class="[^"]*module-info-introduction-content[^"]*"[^>]*>(.*?)</div>', html, re.DOTALL)
             vod_content = self._clean_html(desc.group(1)) if desc else ""
@@ -1697,26 +2267,17 @@ class Spider(Spider):
             if not play_url:
                 play_url = play_page
 
+            # 判断是否为直链：路径或查询串中出现常见视频扩展名
             is_direct = bool(re.search(r'\.(m3u8|mp4|flv|ts|mkv)([?#&]|$)', play_url, re.I))
-            is_parse_page = play_url.startswith(f"https://{self.PARSE_DOMAIN}")
-            self._log(f"播放URL: {play_url[:80]}, direct={is_direct}, parse_page={is_parse_page}")
+            # 解密 API 拿到的地址通常都是真实播放地址；非本站 vplay/解析页也按直链处理
+            is_parse_page = play_url.startswith(play_page) or play_url.startswith(f"https://{self.PARSE_DOMAIN}")
+            parse_flag = 0 if (is_direct or not is_parse_page) else 1
+            self._log(f"播放URL: {play_url[:80]}..., parse={parse_flag}")
 
-            # 构建请求头（兼容不同壳子的格式要求）
-            hdr = {
-                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
-                "Referer": play_page,
-                "Accept": "*/*",
-            }
-
-            if is_direct:
-                # 直链：交给壳子内建播放器，带 vplay 页面 Referer
-                return {"parse": 0, "url": play_url, "header": json.dumps(hdr, ensure_ascii=False)}
-            elif is_parse_page:
-                # 850088 解析页：壳子 WebView 加载，带 Referer 确保前端 JS 正常解析
-                return {"parse": 1, "url": play_url, "header": json.dumps(hdr, ensure_ascii=False)}
+            if parse_flag == 0:
+                return {"parse": 0, "url": play_url, "header": self.play_headers.copy()}
             else:
-                # vplay 页兜底
-                return {"parse": 1, "url": play_page, "header": json.dumps(hdr, ensure_ascii=False)}
+                return {"parse": 1, "url": play_url, "header": ""}
         except Exception as e:
             self._log(f"playerContent异常: {e}")
             return {"parse": 0, "url": "", "header": ""}
@@ -1735,19 +2296,3 @@ class Spider(Spider):
 
     def localProxy(self, param):
         pass
-
-    def getDependence(self):
-        """TVBox 壳协议面：返回 {} 表示无额外依赖"""
-        return {}
-
-    def __getattr__(self, name):
-        """TVBox 壳安全兜底：未知探测返回空 stub，避免 AttributeError 导致整源不显示"""
-        # get 前缀的方法别名映射
-        if name.startswith('get') and name[3:4].isupper():
-            method_name = name[3:]
-            if hasattr(self, method_name):
-                return getattr(self, method_name)
-        # 其他未知方法返回空字典/列表/字符串，避免壳崩溃
-        if name.startswith('get'):
-            return {}
-        return None
