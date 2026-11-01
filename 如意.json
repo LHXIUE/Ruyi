@@ -1,6 +1,5 @@
 {
   "spider": "https://qiniu.gongxueyun.com/upload/6893388/2026-10-23/report/762889058_2_1792796519503.jar;md5;19b2f65c16f492ca8a9c3abadebe8129",
-
   "sites": [
     {
       "key": "Douban",
@@ -24,12 +23,27 @@
       "filterable": 1
     },
     {
+      "sites": [
+        {
+          "api": "csp_Push",
+          "changeable": 0,
+          "indexs": 0,
+          "key": "push_agent",
+          "name": "💌推送[应用]",
+          "searchable": 0,
+          "timeout": 60,
+          "type": 3
+        }
+      ],
+      "spider": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/jar/全球追更.jar"
+    },
+    {
       "key": "FishConfig",
       "name": "[摸鱼]配置",
       "type": 3,
       "api": "csp_FishConfig"
     },
-    {        
+    {
       "key": "MyConfig",
       "name": "[嗷呜] 配置",
       "type": 3,
@@ -131,98 +145,97 @@
       "filterable": 1
     },
     {
-          "key": "gying",
-          "name": "[摸鱼] 观影4K",
-          "type": 3,
-          "api": "csp_Gying",
-          "searchable": 1,
-          "quickSearch": 0,
-          "filterable": 0,
-          "ext": {
-            "cookie": "",
-            "site": [
-              "https://www.教父.com",
-              "https://www.星际穿越.com",
-              "https://www.楚门的世界.com",
-              "https://www.泰坦尼克号.com",
-              "https://www.盗梦空间.com",
-              "https://www.肖申克的救赎.com",
-              "https://www.阿甘正传.com",
-              "https://www.黑客帝国.com"
+      "key": "gying",
+      "name": "[摸鱼] 观影4K",
+      "type": 3,
+      "api": "csp_Gying",
+      "searchable": 1,
+      "quickSearch": 0,
+      "filterable": 0,
+      "ext": {
+        "cookie": "",
+        "site": [
+          "https://www.教父.com",
+          "https://www.星际穿越.com",
+          "https://www.楚门的世界.com",
+          "https://www.泰坦尼克号.com",
+          "https://www.盗梦空间.com",
+          "https://www.肖申克的救赎.com",
+          "https://www.阿甘正传.com",
+          "https://www.黑客帝国.com"
         ]
       }
     },
     {
-          "key": "Wogg",
-          "name": "[摸鱼] 玩偶4K",
-          "type": 3,
-          "api": "csp_Wogg",
-          "searchable": 1,
-          "changeable": 1,
-          "filterable": 1,
-          "ext": {
-            "site": [
-              "https://wogg.xxooo.cf",
-              "https://woggpan.888484.xyz",
-              "https://www.wogg.live",
-              "http://woggpan.xxooo.cf"
-            ],
-          "filter": "https://tc-new.z.wiki/autoupload/iYHTWVx6T8RrCmqdGD6MOdiO_OyvX7mIgxFBfDMDErs/20260320/oOf4/wogg.json"
-          }
+      "key": "Wogg",
+      "name": "[摸鱼] 玩偶4K",
+      "type": 3,
+      "api": "csp_Wogg",
+      "searchable": 1,
+      "changeable": 1,
+      "filterable": 1,
+      "ext": {
+        "site": [
+          "https://wogg.xxooo.cf",
+          "https://woggpan.888484.xyz",
+          "https://www.wogg.live",
+          "http://woggpan.xxooo.cf"
+        ],
+        "filter": "https://tc-new.z.wiki/autoupload/iYHTWVx6T8RrCmqdGD6MOdiO_OyvX7mIgxFBfDMDErs/20260320/oOf4/wogg.json"
+      }
     },
     {
-          "key": "xiaozuo",
-          "name": "[摸鱼] 等风4K",
-          "type": 3,
-          "api": "csp_DengFeng",
-          "searchable": 1,
-          "quickSearch": 1,
-          "filterable": 1,
-          "ext": "ARRavWPOi7W2Usqhe54R+NW2sQ6CCBOYajU9bIz/WVyF75mrlP6UsAbts+o//eKOpDWbngYFUGIJGTa56hr3Hk0="
+      "key": "xiaozuo",
+      "name": "[摸鱼] 等风4K",
+      "type": 3,
+      "api": "csp_DengFeng",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1,
+      "ext": "ARRavWPOi7W2Usqhe54R+NW2sQ6CCBOYajU9bIz/WVyF75mrlP6UsAbts+o//eKOpDWbngYFUGIJGTa56hr3Hk0="
     },
-    {            
-        "key": "FishHuban",
-        "name": "[摸鱼] 虎斑4K",
-        "type": 3,
-        "api": "csp_FishCloud",
-        "searchable": 1,
-        "quickSearch": 1,
-        "filterable": 1,
-        "changeable": 1,
-        "ext": {
+    {
+      "key": "FishHuban",
+      "name": "[摸鱼] 虎斑4K",
+      "type": 3,
+      "api": "csp_FishCloud",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1,
+      "changeable": 1,
+      "ext": {
         "site": [
-                "shturl.cc/KfImQk",
-                "http://38.76.197.172:16969"
-            ]
-        }
+          "shturl.cc/KfImQk",
+          "http://38.76.197.172:16969"
+        ]
+      }
     },
-    {            
-        "key": "ShuangXing",
-        "name": "[摸鱼] 双星4K",
-        "type": 3,
-        "api": "csp_ShuangXing",
-        "searchable": 1,
-        "quickSearch": 1,
-        "filterable": 1,
-        "changeable": 1,
-        "style": {
+    {
+      "key": "ShuangXing",
+      "name": "[摸鱼] 双星4K",
+      "type": 3,
+      "api": "csp_ShuangXing",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1,
+      "changeable": 1,
+      "style": {
         "type": "list",
         "ratio": 1.433
-        },
-        "ext": {
+      },
+      "ext": {
         "site": "https://xxx"
-        }
-
+      }
     },
     {
-          "key": "bandeng",
-          "name": "[摸鱼] 板凳4K",
-          "type": 3,
-          "api": "csp_BanDeng",
-          "searchable": 1,
-          "quickSearch": 1,
-          "filterable": 1,
-          "ext": "ASH3HkV5cxNhNR9+uQe0sWYxUWHzEywHT3rcYOx+wsK4Jx+sBd0qMO9kFic1Rc1osAMsAsTlMgabd1Ky2kmzQ/Y="
+      "key": "bandeng",
+      "name": "[摸鱼] 板凳4K",
+      "type": 3,
+      "api": "csp_BanDeng",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1,
+      "ext": "ASH3HkV5cxNhNR9+uQe0sWYxUWHzEywHT3rcYOx+wsK4Jx+sBd0qMO9kFic1Rc1osAMsAsTlMgabd1Ky2kmzQ/Y="
     },
     {
       "key": "南枝",
@@ -260,50 +273,50 @@
       "ext": "Ae6vu7b7i5h70Oy94HyVp82ZDRF6HrMNdCYNTQ442xkG4kY88mkG1x34awtkrrUdk56x2qehUzy3YCLubZhewqD5a5lQeSsfcnYh8z8+qVVL"
     },
     {
-        "key": "热播影视",
-        "name": "[摸鱼] 热播",
-        "type": 3,
-        "api": "csp_AppRJ",
-        "searchable": 1,
-        "quickSearch": 1,
-        "filterable": 0,
-        "ext": {
+      "key": "热播影视",
+      "name": "[摸鱼] 热播",
+      "type": 3,
+      "api": "csp_AppRJ",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 0,
+      "ext": {
         "url": "http://v.rbotv.cn"
-        }
+      }
     },
     {
-        "key": "KanJu",
-        "name": "[摸鱼] 看剧",
-        "type": 3,
-        "api": "csp_KanJu",
-        "searchable": 1,
-        "quickSearch": 1,
-        "filterable": 1,
-        "changeable": 1,
-        "ext": {
+      "key": "KanJu",
+      "name": "[摸鱼] 看剧",
+      "type": 3,
+      "api": "csp_KanJu",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1,
+      "changeable": 1,
+      "ext": {
         "site": "https://kanju.ai",
         "playname": "ly"
-         }
+      }
     },
     {
-        "key": "Guazi",
-        "name": "[摸鱼] 瓜子",
-        "type": 3,
-        "api": "csp_Guazi",
-        "searchable": 1,
-        "quickSearch": 1,
-        "filterable": 1,
-        "changeable": 1
+      "key": "Guazi",
+      "name": "[摸鱼] 瓜子",
+      "type": 3,
+      "api": "csp_Guazi",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1,
+      "changeable": 1
     },
     {
-        "key": "Duboku",
-        "name": "[摸鱼] 独播",
-        "type": 3,
-        "api": "csp_Duboku",
-        "searchable": 1,
-        "quickSearch": 1,
-        "filterable": 1,
-        "changeable": 1
+      "key": "Duboku",
+      "name": "[摸鱼] 独播",
+      "type": 3,
+      "api": "csp_Duboku",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1,
+      "changeable": 1
     },
     {
       "key": "py_八戒",
@@ -531,114 +544,114 @@
       "filterable": 1
     },
     {
-        "name": "[秒播] 嗷呜①线",
-        "key": "AppV7Fz",
-        "type": 3,
-        "api": "csp_AppV7Amns",
-        "jar": "https://file.icve.com.cn/file_doc/997/227/F9538F89E13ADF0CFBCA7909AE555AB6.png",
-        "searchable": 1,
-        "quickSearch": 1,
-        "changeable": 1,
-        "ext": "AppV7Fz"
+      "name": "[秒播] 嗷呜①线",
+      "key": "AppV7Fz",
+      "type": 3,
+      "api": "csp_AppV7Amns",
+      "jar": "https://file.icve.com.cn/file_doc/997/227/F9538F89E13ADF0CFBCA7909AE555AB6.png",
+      "searchable": 1,
+      "quickSearch": 1,
+      "changeable": 1,
+      "ext": "AppV7Fz"
     },
     {
-        "name": "[秒播] 嗷呜②线",
-        "key": "AppV7Xy",
-        "type": 3,
-        "api": "csp_AppV7Amns",
-        "jar": "https://file.icve.com.cn/file_doc/997/227/F9538F89E13ADF0CFBCA7909AE555AB6.png",
-        "searchable": 1,
-        "quickSearch": 1,
-        "changeable": 1,
-        "ext": "AppV7Xy"
+      "name": "[秒播] 嗷呜②线",
+      "key": "AppV7Xy",
+      "type": 3,
+      "api": "csp_AppV7Amns",
+      "jar": "https://file.icve.com.cn/file_doc/997/227/F9538F89E13ADF0CFBCA7909AE555AB6.png",
+      "searchable": 1,
+      "quickSearch": 1,
+      "changeable": 1,
+      "ext": "AppV7Xy"
     },
     {
-        "name": "[秒播] 嗷呜③线",
-        "key": "AppV7Zjdr",
-        "type": 3,
-        "api": "csp_AppV7Amns",
-        "jar": "https://file.icve.com.cn/file_doc/997/227/F9538F89E13ADF0CFBCA7909AE555AB6.png",
-        "searchable": 1,
-        "quickSearch": 1,
-        "changeable": 1,
-        "ext": "AppV7Zjdr"
+      "name": "[秒播] 嗷呜③线",
+      "key": "AppV7Zjdr",
+      "type": 3,
+      "api": "csp_AppV7Amns",
+      "jar": "https://file.icve.com.cn/file_doc/997/227/F9538F89E13ADF0CFBCA7909AE555AB6.png",
+      "searchable": 1,
+      "quickSearch": 1,
+      "changeable": 1,
+      "ext": "AppV7Zjdr"
     },
     {
-        "name": "[秒播] 嗷呜④线",
-        "key": "AppV7Xyz",
-        "type": 3,
-        "api": "csp_AppV7Amns",
-        "jar": "https://file.icve.com.cn/file_doc/997/227/F9538F89E13ADF0CFBCA7909AE555AB6.png",
-        "searchable": 1,
-        "quickSearch": 1,
-        "changeable": 1,
-        "ext": "AppV7Xyz"
+      "name": "[秒播] 嗷呜④‑1线",
+      "key": "AppV7Xyz",
+      "type": 3,
+      "api": "csp_AppV7Amns",
+      "jar": "https://file.icve.com.cn/file_doc/997/227/F9538F89E13ADF0CFBCA7909AE555AB6.png",
+      "searchable": 1,
+      "quickSearch": 1,
+      "changeable": 1,
+      "ext": "AppV7Xyz"
     },
     {
-        "name": "[秒播] 嗷呜④线",
-        "key": "AppV7Xnm",
-        "type": 3,
-        "api": "csp_AppV7Amns",
-        "jar": "https://file.icve.com.cn/file_doc/997/227/F9538F89E13ADF0CFBCA7909AE555AB6.png",
-        "searchable": 1,
-        "quickSearch": 1,
-        "changeable": 1,
-        "ext": "AppV7Xnm"
+      "name": "[秒播] 嗷呜④‑2线",
+      "key": "AppV7Xnm",
+      "type": 3,
+      "api": "csp_AppV7Amns",
+      "jar": "https://file.icve.com.cn/file_doc/997/227/F9538F89E13ADF0CFBCA7909AE555AB6.png",
+      "searchable": 1,
+      "quickSearch": 1,
+      "changeable": 1,
+      "ext": "AppV7Xnm"
     },
     {
-        "name": "[秒播] 嗷呜⑤线",
-        "key": "AppV7Mtq",
-        "type": 3,
-        "api": "csp_AppV7Amns",
-        "jar": "https://file.icve.com.cn/file_doc/997/227/F9538F89E13ADF0CFBCA7909AE555AB6.png",
-        "searchable": 1,
-        "quickSearch": 1,
-        "changeable": 1,
-        "ext": "AppV7Mtq"
+      "name": "[秒播] 嗷呜⑤线",
+      "key": "AppV7Mtq",
+      "type": 3,
+      "api": "csp_AppV7Amns",
+      "jar": "https://file.icve.com.cn/file_doc/997/227/F9538F89E13ADF0CFBCA7909AE555AB6.png",
+      "searchable": 1,
+      "quickSearch": 1,
+      "changeable": 1,
+      "ext": "AppV7Mtq"
     },
     {
-        "name": "[秒播] 嗷呜⑦线",
-        "key": "AppV7Llq",
-        "type": 3,
-        "api": "csp_AppV7Amns",
-        "jar": "https://file.icve.com.cn/file_doc/997/227/F9538F89E13ADF0CFBCA7909AE555AB6.png",
-        "searchable": 1,
-        "quickSearch": 1,
-        "changeable": 1,
-        "ext": "AppV7Llq"
+      "name": "[秒播] 嗷呜⑦线",
+      "key": "AppV7Llq",
+      "type": 3,
+      "api": "csp_AppV7Amns",
+      "jar": "https://file.icve.com.cn/file_doc/997/227/F9538F89E13ADF0CFBCA7909AE555AB6.png",
+      "searchable": 1,
+      "quickSearch": 1,
+      "changeable": 1,
+      "ext": "AppV7Llq"
     },
     {
-        "name": "[秒播] 嗷呜⑧线",
-        "key": "AppV7Xsz",
-        "type": 3,
-        "api": "csp_AppV7Amns",
-        "jar": "https://file.icve.com.cn/file_doc/997/227/F9538F89E13ADF0CFBCA7909AE555AB6.png",
-        "searchable": 1,
-        "quickSearch": 1,
-        "changeable": 1,
-        "ext": "AppV7Xsz"
+      "name": "[秒播] 嗷呜⑧线",
+      "key": "AppV7Xsz",
+      "type": 3,
+      "api": "csp_AppV7Amns",
+      "jar": "https://file.icve.com.cn/file_doc/997/227/F9538F89E13ADF0CFBCA7909AE555AB6.png",
+      "searchable": 1,
+      "quickSearch": 1,
+      "changeable": 1,
+      "ext": "AppV7Xsz"
     },
     {
-        "name": "[秒播] 嗷呜⑨线",
-        "key": "AppV7Xhr",
-        "type": 3,
-        "api": "csp_AppV7Amns",
-        "jar": "https://file.icve.com.cn/file_doc/997/227/F9538F89E13ADF0CFBCA7909AE555AB6.png",
-        "searchable": 1,
-        "quickSearch": 1,
-        "changeable": 1,
-        "ext": "AppV7Xhr"
+      "name": "[秒播] 嗷呜⑨线",
+      "key": "AppV7Xhr",
+      "type": 3,
+      "api": "csp_AppV7Amns",
+      "jar": "https://file.icve.com.cn/file_doc/997/227/F9538F89E13ADF0CFBCA7909AE555AB6.png",
+      "searchable": 1,
+      "quickSearch": 1,
+      "changeable": 1,
+      "ext": "AppV7Xhr"
     },
     {
-        "name": "[秒播] 嗷呜⑩线",
-        "key": "AppV7Dsx",
-        "type": 3,
-        "api": "csp_AppV7Amns",
-        "jar": "https://file.icve.com.cn/file_doc/997/227/F9538F89E13ADF0CFBCA7909AE555AB6.png",
-        "searchable": 1,
-        "quickSearch": 1,
-        "changeable": 1,
-        "ext": "AppV7Dsx"
+      "name": "[秒播] 嗷呜⑩线",
+      "key": "AppV7Dsx",
+      "type": 3,
+      "api": "csp_AppV7Amns",
+      "jar": "https://file.icve.com.cn/file_doc/997/227/F9538F89E13ADF0CFBCA7909AE555AB6.png",
+      "searchable": 1,
+      "quickSearch": 1,
+      "changeable": 1,
+      "ext": "AppV7Dsx"
     },
     {
       "key": "py_红果漫剧",
@@ -711,7 +724,7 @@
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1
-    },
+    }
   ],
   "parses": [],
   "lives": [],
