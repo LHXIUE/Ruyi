@@ -23,6 +23,12 @@
       "quickSearch": 1,
       "filterable": 1
     },
+    {
+      "key": "FishConfig",
+      "name": "[摸鱼]设置",
+      "type": 3,
+      "api": "csp_FishConfig"
+    },
     {        
       "key": "MyConfig",
       "name": "[设置] 配置",
