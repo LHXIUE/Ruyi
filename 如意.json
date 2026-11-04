@@ -7,7 +7,7 @@
       "type": 3,
       "api": "csp_Douban",
       "jar": "https://gh-proxy.com/https://github.com/LHXIUE/Ruyi/blob/main/easy.png;md5;e8dc6bb0f6a1f7a987885fac6173a235",
-      "searchable": 0
+      "searchable": 1
     },
     {
       "key": "py_TMDB",
@@ -51,7 +51,8 @@
       "changeable": 0,
       "indexs": 0,
       "style": {
-        "type": "list"
+      "type": "list"
+      }
     },
     {
       "key": "py_影探",
