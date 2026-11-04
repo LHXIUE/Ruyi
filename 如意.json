@@ -14,6 +14,14 @@
       "ext": "Douban"
     },
     {
+      "key": "豆瓣",
+      "name": "[片单] 豆瓣",
+      "type": 3,
+      "api": "csp_Douban",
+      "jar": "https://github.com/LHXIUE/Ruyi/blob/main/easy11.03.png;md5;e8dc6bb0f6a1f7a987885fac6173a235"
+      "searchable": 0
+    },
+    {
       "key": "py_TMDB",
       "name": "[片单] TMDB",
       "type": 3,
@@ -27,6 +35,15 @@
       "name": "[片单] 全球追更",
       "type": 3,
       "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/4k/全球追更.py",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1
+    },
+    {
+      "key": "py_全球追更(第二版)",
+      "name": "[片单] 全球追更|可播放",
+      "type": 3,
+      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/4k/全球追更(第二版).py",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1
@@ -62,15 +79,6 @@
       "name": "[4k] 影探",
       "type": 3,
       "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/4k/%E5%BD%B1%E6%8E%A2.py",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1
-    },
-    {
-      "key": "py_看客",
-      "name": "[4k] 看客",
-      "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/4k/%E7%9C%8B%E5%AE%A2.py",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1
@@ -240,28 +248,28 @@
     },
     {
       "key": "疏影",
-      "name": "[摸鱼] 疏影4K",
+      "name": "[摸鱼] 疏影4K|登录",
       "api": "csp_AppUn",
       "type": 3,
       "ext": "AcWh+ygRkvJAOf11TNsY/RqlWx9GJlpo3j4tzpUl+u3fVki/utnqUPm2SGUaMOiuwO9ab8dc4NOr/Kone+3t4Pvvqo19sUMAcLVWyXq8gKIr"
     },
     {
       "key": "沐辞",
-      "name": "[摸鱼] 沐辞4K",
+      "name": "[摸鱼] 沐辞4K|登录",
       "api": "csp_AppUn",
       "type": 3,
       "ext": "AYdXH70UMM8plqsXPmZuN9zEJQV/2vpn2nM5OAeVwvV966SO86n0qc/65IvyNOY7I8FscuN2i4tnXSoa2eVVhCbvIzsK+OAWQcMwpKHy1zZg"
     },
     {
       "key": "观澜",
-      "name": "[摸鱼] 观澜",
+      "name": "[摸鱼] 观澜|登录",
       "api": "csp_AppUn",
       "type": 3,
       "ext": "AVV1qWzQBjKvN7CKup9rpdodlSeTxhlrSJPwshkidi4LdlbDt81YkaxBlOnImlhpaCXFZ3rlaVHkoA57wMFZIEUb0eGUhm8upw9Vw/Qq5sdr"
     },
     {
       "key": "枕霜",
-      "name": "[摸鱼] 枕霜",
+      "name": "[摸鱼] 枕霜|登录",
       "api": "csp_AppUn",
       "type": 3,
       "ext": "Ae6vu7b7i5h70Oy94HyVp82ZDRF6HrMNdCYNTQ442xkG4kY88mkG1x34awtkrrUdk56x2qehUzy3YCLubZhewqD5a5lQeSsfcnYh8z8+qVVL"
@@ -538,7 +546,7 @@
       "filterable": 1
     },
     {
-      "name": "[秒播] 嗷呜①线",
+      "name": "[嗷呜] 嗷呜①线",
       "key": "AppV7Fz",
       "type": 3,
       "api": "csp_AppV7Amns",
@@ -549,7 +557,7 @@
       "ext": "AppV7Fz"
     },
     {
-      "name": "[秒播] 嗷呜②线",
+      "name": "[嗷呜] 嗷呜②线",
       "key": "AppV7Xy",
       "type": 3,
       "api": "csp_AppV7Amns",
@@ -560,7 +568,7 @@
       "ext": "AppV7Xy"
     },
     {
-      "name": "[秒播] 嗷呜③线",
+      "name": "[嗷呜] 嗷呜③线",
       "key": "AppV7Zjdr",
       "type": 3,
       "api": "csp_AppV7Amns",
@@ -571,7 +579,7 @@
       "ext": "AppV7Zjdr"
     },
     {
-      "name": "[秒播] 嗷呜④线",
+      "name": "[嗷呜] 嗷呜④线",
       "key": "AppV7Xyz",
       "type": 3,
       "api": "csp_AppV7Amns",
@@ -582,7 +590,7 @@
       "ext": "AppV7Xyz"
     },
     {
-      "name": "[秒播] 嗷呜⑤线",
+      "name": "[嗷呜] 嗷呜⑤线",
       "key": "AppV7Mtq",
       "type": 3,
       "api": "csp_AppV7Amns",
@@ -593,7 +601,7 @@
       "ext": "AppV7Mtq"
     },
     {
-      "name": "[秒播] 嗷呜⑦线",
+      "name": "[嗷呜] 嗷呜⑦线",
       "key": "AppV7Llq",
       "type": 3,
       "api": "csp_AppV7Amns",
@@ -604,7 +612,7 @@
       "ext": "AppV7Llq"
     },
     {
-      "name": "[秒播] 嗷呜⑧线",
+      "name": "[嗷呜] 嗷呜⑧线",
       "key": "AppV7Xsz",
       "type": 3,
       "api": "csp_AppV7Amns",
@@ -615,7 +623,7 @@
       "ext": "AppV7Xsz"
     },
     {
-      "name": "[秒播] 嗷呜⑨线",
+      "name": "[嗷呜] 嗷呜⑨线",
       "key": "AppV7Xhr",
       "type": 3,
       "api": "csp_AppV7Amns",
@@ -626,7 +634,7 @@
       "ext": "AppV7Xhr"
     },
     {
-      "name": "[秒播] 嗷呜⑩线",
+      "name": "[嗷呜] 嗷呜⑩线",
       "key": "AppV7Dsx",
       "type": 3,
       "api": "csp_AppV7Amns",
