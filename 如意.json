@@ -1,24 +1,12 @@
 {
-  "spider": "https://qiniu.gongxueyun.com/upload/6893388/2026-10-23/report/762889058_2_1792796519503.jar;md5;19b2f65c16f492ca8a9c3abadebe8129",
+  "spider": "https://gh-proxy.com/https://github.com/LHXIUE/Ruyi/blob/main/摸鱼.jar;md5;19b2f65c16f492ca8a9c3abadebe8129",
   "sites": [
-    {
-      "key": "Douban",
-      "name": "[片单] 豆瓣",
-      "type": 3,
-      "api": "csp_DoubanAmns",
-      "jar": "https://file.icve.com.cn/file_doc/653/727/A37B5C22B56C4DCE38B519EE92256A8E.png;md5;a37b5c22b56c4dce38b519ee92256a8e",
-      "indexs": 1,
-      "searchable": 0,
-      "quickSearch": 0,
-      "changeable": 1,
-      "ext": "Douban"
-    },
     {
       "key": "豆瓣",
       "name": "[片单] 豆瓣",
       "type": 3,
       "api": "csp_Douban",
-      "jar": "https://github.com/LHXIUE/Ruyi/blob/main/easy11.03.png;md5;e8dc6bb0f6a1f7a987885fac6173a235",
+      "jar": "https://gh-proxy.com/https://github.com/LHXIUE/Ruyi/blob/main/easy.png;md5;e8dc6bb0f6a1f7a987885fac6173a235",
       "searchable": 0
     },
     {
