@@ -43,24 +43,15 @@
       "api": "csp_FishConfig"
     },
     {
-      "key": "MyConfig",
-      "name": "[嗷呜] 配置",
+      "key": "Local",
+      "name": "[摸鱼]文件",
       "type": 3,
-      "api": "csp_AAConfigAmns",
+      "api": "csp_Local",
       "searchable": 0,
-      "quickSearch": 0,
       "changeable": 0,
-      "jar": "https://file.icve.com.cn/file_doc/997/227/F9538F89E13ADF0CFBCA7909AE555AB6.png"
-    },
-    {
-      "key": "MyAll",
-      "name": "[嗷呜] 资源",
-      "type": 3,
-      "api": "csp_MyAllAmns",
-      "searchable": 0,
-      "quickSearch": 0,
-      "changeable": 0,
-      "jar": "https://file.icve.com.cn/file_doc/997/227/F9538F89E13ADF0CFBCA7909AE555AB6.png"
+      "indexs": 0,
+      "style": {
+        "type": "list"
     },
     {
       "key": "py_影探",
