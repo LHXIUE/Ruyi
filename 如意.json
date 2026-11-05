@@ -1,12 +1,12 @@
 {
-  "spider": "https://gh-proxy.com/https://github.com/LHXIUE/Ruyi/blob/main/摸鱼.jar",
+  "spider": "https://gh-proxy.com/https://github.com/LHXIUE/Ruyi/blob/main/摸鱼.jar;md5;19b2f65c16f492ca8a9c3abadebe8129",
   "sites": [
     {
       "key": "豆瓣",
       "name": "[片单] 豆瓣",
       "type": 3,
       "api": "csp_Douban",
-      "jar": "https://gh-proxy.com/https://github.com/LHXIUE/Ruyi/blob/main/easy.png",
+      "jar": "https://gh-proxy.com/https://github.com/LHXIUE/Ruyi/blob/main/easy.png;c07ab2794d358d27d4a4e842712d3c16",
       "searchable": 0
     },
     {
@@ -69,7 +69,7 @@
       "api": "csp_Config",
       "searchable": 0,
       "changeable": 0,
-      "jar": "https://gh-proxy.com/https://github.com/LHXIUE/Ruyi/blob/main/easy.png",
+      "jar": "https://gh-proxy.com/https://github.com/LHXIUE/Ruyi/blob/main/easy.png;c07ab2794d358d27d4a4e842712d3c16",
       "indexs": 0,
       "style": {
       "type": "rect",
@@ -309,6 +309,108 @@
       "ext": "AbjGNiFc0jaPCvOXj2edU7/DIRsvVxb1/2tyMFgaoT8L4eZNchAll5NXn7xBXvEwQvvJ55Odg+IugUeNvfYtPT0="
     },
     {
+      "key": "HuangYou",
+      "name": "[摸鱼] 晃悠4K",
+      "type": 3,
+      "api": "csp_HuangYou",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1,
+      "ext": "AVVlrRajtr+i42Q1MBwsMRSoNuckBLnPEocZVkZik+88465w0JZsKWJodTFxYL+RSsAVU8X8lJ4M8E2Xfw0GLYA="
+    },
+    {
+      "key": "SuiYuan",
+      "name": "[摸鱼] 随缘4K",
+      "type": 3,
+      "api": "csp_SuiYuan",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1,
+      "ext": "AVjYSEtEaHF+eS3NOrCubcE3f755psW6EFCg2THWgHt0uWkH1CXlE/UJ2zqohcEULrn/AlZOVuzN4V4Wt0EY3bY="
+    },
+    {
+      "key": "bandeng",
+      "name": "[摸鱼] 板凳4K",
+      "type": 3,
+      "api": "csp_BanDeng",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1,
+      "ext": "ASH3HkV5cxNhNR9+uQe0sWYxUWHzEywHT3rcYOx+wsK4Jx+sBd0qMO9kFic1Rc1osAMsAsTlMgabd1Ky2kmzQ/Y="
+    },
+    {
+      "key": "xiaozuo",
+      "name": "[摸鱼] 等风4K",
+      "type": 3,
+      "api": "csp_DengFeng",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1,
+      "ext": "ARRavWPOi7W2Usqhe54R+NW2sQ6CCBOYajU9bIz/WVyF75mrlP6UsAbts+o//eKOpDWbngYFUGIJGTa56hr3Hk0="
+    },
+    {
+      "key": "FishDuoduo",
+      "name": "[摸鱼] 多多4K",
+      "type": 3,
+      "api": "csp_FishCloud",
+      "searchable": 1,
+      "ext": {
+      "site": [
+      "https://tv.yydsys.top",
+      "https://tv.yydsys.cc",
+      "https://tv.214521.xyz"
+        ]
+      }
+    },
+    {
+      "key": "Fishhuajuan",
+      "name": "[摸鱼] 花卷4K",
+      "type": 3,
+      "api": "csp_FishCloud",
+      "searchable": 1,
+      "ext": {
+      "site": [
+      "https://www.hjzhencai.top",
+      "https://www.huanjuanwp.shop"
+        ]
+      }
+    },
+    {
+      "key": "FishHuban",
+      "name": "[摸鱼] 虎斑4K",
+      "type": 3,
+      "api": "csp_FishCloud",
+      "searchable": 1,
+      "ext": {
+      "site": [
+      "http://xhban.xyz",
+      "http://38.76.197.172:16969"
+        ]
+      }
+    },
+    {
+      "key": "Fishgege",
+      "name": "[摸鱼] 八零4K",
+      "type": 3,
+      "api": "csp_FishCloud",
+      "searchable": 1,
+      "ext": {
+      "site": [
+      "https://woog.nxog.eu.org",
+      "https://ogkk.nxog.eu.org",
+      "https://woog.430520.xyz"
+        ]
+      }
+    },
+    {
+      "key": "DianYingYunJi",
+      "name": "☁️┆云集┆4K",
+      "type": 3,
+      "api": "csp_DianYingYunJi",
+      "searchable": 1,
+      "changeable": 1
+    },
+    {
       "key": "疏影",
       "name": "[摸鱼] 疏影4K|登录",
       "api": "csp_AppUn",
@@ -337,6 +439,47 @@
       "ext": "Ae6vu7b7i5h70Oy94HyVp82ZDRF6HrMNdCYNTQ442xkG4kY88mkG1x34awtkrrUdk56x2qehUzy3YCLubZhewqD5a5lQeSsfcnYh8z8+qVVL"
     },
     {
+      "key": "LaiChuang",
+      "name": "[摸鱼] 赖床",
+      "type": 3,
+      "api": "csp_LaiChuang",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1,
+      "ext": "AVlJ4J+D/3DMzdKAQnig/9ckDSQU7H+PyPyOE/q+m7eGkaZ9YjDkVXgq17TjYCHuvJa0UinsvgwPiAVd51fKuA0="
+    },
+    {
+      "key": "KanJu",
+      "name": "[摸鱼] 流映",
+      "type": 3,
+      "api": "csp_KanJu",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1,
+      "changeable": 1,
+      "ext": {
+      "site": "https://kanju.ai",
+      "playname": "ly"
+      }
+    },
+    {
+      "key": "凝光",
+      "name": "[摸鱼] 凝光",
+      "type": 3,
+      "api": "csp_NiuLai",
+      "searchable": 1,
+      "filterable": 1,
+      "changeable": 0,
+      "ext": "AbHckdJkP3IQGfQAetQhutxB3VjOrW67VMoOo8mAdc9grkAgbVv7bUgWbHKHHabksz8nJklfQrFKo56OYXkhQ936PGDo/33ZU4cnkGGALgUlbfxoJoT/TJ/KZwRlYHiajg=="
+    },
+    {
+      "key": "长泽",
+      "name": "[摸鱼] 长泽",
+      "type": 3,
+      "api": "csp_App88",
+      "ext": "AbUqYzi9KxmcqEBrph2PStNUDPxq/XlzxDHJ/Ho29gXr8NgMOEJGFKBsrdYb5xNb+w+Xaj3203DI9YWo5wBv6zGULMNZneW1yESyfC1/S1BM"
+    },
+    {
       "key": "热播影视",
       "name": "[摸鱼] 热播",
       "type": 3,
@@ -347,6 +490,16 @@
       "ext": {
         "url": "http://v.rbotv.cn"
       }
+    },
+    {
+      "key": "云岫",
+      "name": "[摸鱼] 云岫",
+      "type": 3,
+      "api": "csp_NiuLai",
+      "searchable": 1,
+      "filterable": 1,
+      "changeable": 0,
+      "ext": "Af9dBxsQCjGtIKQ47cJEAnzHtmsGI04C7DCRpNBZk7hshaMWsb76puB4aGapQk4JgYpBV2BKnAQ6GRcUI+/vzYduXc8ItUUvkHR/+LR3Y+NT"
     },
     {
       "key": "KanJu",
@@ -361,6 +514,34 @@
         "site": "https://kanju.ai",
         "playname": "ly"
       }
+    },
+    {
+      "key": "zhiqiu",
+      "name": "[摸鱼] 听风",
+      "type": 3,
+      "api": "csp_zhiqiu",
+      "searchable": 1,
+      "ext": "ATuDzsbtXNA1mpnRWIpcUB8B2+hY3LMP/3Z1xXurADboE8cAKUOjUN6TXimsApauJg/X7yLotzgNXhCsjAn5wuQ="
+    },
+    {
+      "key": "竹隐",
+      "name": "[摸鱼] 竹隐",
+      "type": 3,
+      "api": "csp_NiuLai",
+      "searchable": 1,
+      "filterable": 1,
+      "changeable": 0,
+      "ext": "ASOaI+0HH0pDfWQ9VwPhMaOaO+WarJ6umTa/qwrJ+cbO4qRPAyjfTVh51M3iYZq/nEN+givTp7FLvjhWgQh8WCdjm82k8bbHm80C9j41tlvo"
+    },
+    {
+      "key": "玉阶",
+      "name": "[摸鱼] 玉阶",
+      "type": 3,
+      "api": "csp_NiuLai",
+      "searchable": 1,
+      "filterable": 1,
+      "changeable": 0,
+      "ext": "AR1skS0Mq97cRrUjisQHhwxFfgXFonkw2eX4zfToon+DcScGRXGViBnNIsG5DYOtYkAp0CTia3vGvMluKl75/eMH49CGi2ZWYJa1wyldHjNH"
     },
     {
       "key": "Guazi",
