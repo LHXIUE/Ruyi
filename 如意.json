@@ -1,6 +1,14 @@
 {
-  "spider": "https://gh-proxy.com/https://github.com/LHXIUE/Ruyi/blob/main/摸鱼.jar;md5;19b2f65c16f492ca8a9c3abadebe8129",
+  "spider": "https://ghfast.top/https://github.com/LHXIUE/Ruyi/blob/main/摸鱼.jar;md5;19b2f65c16f492ca8a9c3abadebe8129",
   "sites": [
+    {
+      "key": "豆瓣",
+      "name": "[片单] 豆瓣",
+      "type": 3,
+      "api": "csp_Douban",
+      "jar": "https://ghfast.top/https://github.com/LHXIUE/Ruyi/blob/main/easy.png;md5;c07ab2794d358d27d4a4e842712d3c16",
+      "searchable": 0
+    },
     {
       "key": "Douban",
       "name": "[片单] 摸鱼",
@@ -16,20 +24,12 @@
           "tmdb": "https://tc-new.z.wiki/autoupload/k2fxc/20260918/yAKC/tmdb.json"
         }
       }
-     },
-     {
-      "key": "豆瓣",
-      "name": "[片单] 豆瓣",
-      "type": 3,
-      "api": "csp_Douban",
-      "jar": "https://gh-proxy.com/https://github.com/LHXIUE/Ruyi/blob/main/easy.png;md5;c07ab2794d358d27d4a4e842712d3c16",
-      "searchable": 0
     },
     {
       "key": "py_TMDB",
       "name": "[片单] TMDB",
       "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/4k/TMDB.py",
+      "api": "https://ghfast.top/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/4k/TMDB.py",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1
@@ -38,7 +38,7 @@
       "key": "py_全球追更",
       "name": "[片单] 全球追更",
       "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/4k/全球追更.py",
+      "api": "https://ghfast.top/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/4k/全球追更.py",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1
@@ -47,7 +47,7 @@
       "key": "py_全球追更(第二版)",
       "name": "[片单] 全球追更|可播放",
       "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/4k/全球追更(第二版).py",
+      "api": "https://ghfast.top/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/4k/全球追更(第二版).py",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1
@@ -85,7 +85,7 @@
       "api": "csp_Config",
       "searchable": 0,
       "changeable": 0,
-      "jar": "https://gh-proxy.com/https://github.com/LHXIUE/Ruyi/blob/main/easy.png;md5;c07ab2794d358d27d4a4e842712d3c16",
+      "jar": "https://ghfast.top/https://github.com/LHXIUE/Ruyi/blob/main/easy.png;md5;c07ab2794d358d27d4a4e842712d3c16",
       "indexs": 0,
       "style": {
       "type": "rect",
@@ -96,7 +96,7 @@
       "key": "py_影探",
       "name": "[4k] 影探",
       "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/4k/%E5%BD%B1%E6%8E%A2.py",
+      "api": "https://ghfast.top/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/4k/%E5%BD%B1%E6%8E%A2.py",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1
@@ -105,7 +105,7 @@
       "key": "py_山楂",
       "name": "[4k] 山楂",
       "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/4k/山楂.py",
+      "api": "https://ghfast.top/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/4k/山楂.py",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1
@@ -114,7 +114,7 @@
       "key": "py_剧下饭",
       "name": "[4k] 剧下饭",
       "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/4k/%E5%89%A7%E4%B8%8B%E9%A5%AD.py",
+      "api": "https://ghfast.top/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/4k/%E5%89%A7%E4%B8%8B%E9%A5%AD.py",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1
@@ -123,7 +123,7 @@
       "key": "py_4KAV",
       "name": "[4k] 4KAV",
       "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/4k/4KAV.py",
+      "api": "https://ghfast.top/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/4k/4KAV.py",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1
@@ -132,7 +132,7 @@
       "key": "py_咕噜咕噜",
       "name": "[4k] 咕噜咕噜",
       "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/4k/%E5%92%95%E5%99%9C%E5%92%95%E5%99%9C.py",
+      "api": "https://ghfast.top/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/4k/%E5%92%95%E5%99%9C%E5%92%95%E5%99%9C.py",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1
@@ -141,7 +141,7 @@
       "key": "py_山有木兮",
       "name": "[4k] 山有木兮",
       "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/4k/%E5%B1%B1%E6%9C%89%E6%9C%A8%E5%85%AE.py",
+      "api": "https://ghfast.top/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/4k/%E5%B1%B1%E6%9C%89%E6%9C%A8%E5%85%AE.py",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1
@@ -150,7 +150,7 @@
       "key": "py_歪比巴卜",
       "name": "[4k] 歪比巴卜",
       "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/4k/%E6%AD%AA%E6%AF%94%E5%B7%B4%E5%8D%9C.py",
+      "api": "https://ghfast.top/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/4k/%E6%AD%AA%E6%AF%94%E5%B7%B4%E5%8D%9C.py",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1
@@ -159,7 +159,7 @@
       "key": "py_TVB云播",
       "name": "[4k] TVB云播",
       "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/4k/TVB%E4%BA%91%E6%92%AD.py",
+      "api": "https://ghfast.top/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/4k/TVB%E4%BA%91%E6%92%AD.py",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1
@@ -583,7 +583,7 @@
       "key": "py_八戒",
       "name": "[高清] 八戒",
       "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%E9%AB%98%E7%A0%81%E7%8E%87/%E5%85%AB%E6%88%92.py",
+      "api": "https://ghfast.top/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%E9%AB%98%E7%A0%81%E7%8E%87/%E5%85%AB%E6%88%92.py",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1
@@ -592,7 +592,7 @@
       "key": "py_剧圈",
       "name": "[高清] 剧圈",
       "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%E9%AB%98%E7%A0%81%E7%8E%87/%E5%89%A7%E5%9C%88.py",
+      "api": "https://ghfast.top/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%E9%AB%98%E7%A0%81%E7%8E%87/%E5%89%A7%E5%9C%88.py",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1
@@ -601,7 +601,7 @@
       "key": "py_追影",
       "name": "[高清] 追影",
       "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%E9%AB%98%E7%A0%81%E7%8E%87/%E8%BF%BD%E5%BD%B1.py",
+      "api": "https://ghfast.top/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%E9%AB%98%E7%A0%81%E7%8E%87/%E8%BF%BD%E5%BD%B1.py",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1
@@ -610,7 +610,7 @@
       "key": "py_速搜",
       "name": "[高清] 速搜",
       "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%E9%AB%98%E7%A0%81%E7%8E%87/%E9%80%9F%E6%90%9C.py",
+      "api": "https://ghfast.top/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%E9%AB%98%E7%A0%81%E7%8E%87/%E9%80%9F%E6%90%9C.py",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1
@@ -619,7 +619,7 @@
       "key": "py_帧不戳4K",
       "name": "[高清] 帧不戳",
       "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%E9%AB%98%E7%A0%81%E7%8E%87/%E5%B8%A7%E4%B8%8D%E6%88%B34K.py",
+      "api": "https://ghfast.top/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%E9%AB%98%E7%A0%81%E7%8E%87/%E5%B8%A7%E4%B8%8D%E6%88%B34K.py",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1
@@ -628,7 +628,7 @@
       "key": "py_全看网",
       "name": "[高清] 全看网",
       "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/高码率/全看网.py",
+      "api": "https://ghfast.top/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/高码率/全看网.py",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1
@@ -637,7 +637,7 @@
       "key": "py_搜剧AI",
       "name": "[高清] 搜剧AI",
       "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%E9%AB%98%E7%A0%81%E7%8E%87/%E6%90%9C%E5%89%A7AI.py",
+      "api": "https://ghfast.top/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%E9%AB%98%E7%A0%81%E7%8E%87/%E6%90%9C%E5%89%A7AI.py",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 0
@@ -646,7 +646,7 @@
       "key": "py_T3猎手",
       "name": "[高清] T3猎手",
       "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%E9%AB%98%E7%A0%81%E7%8E%87/T3%E7%8C%8E%E6%89%8B.py",
+      "api": "https://ghfast.top/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%E9%AB%98%E7%A0%81%E7%8E%87/T3%E7%8C%8E%E6%89%8B.py",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1
@@ -655,7 +655,7 @@
       "key": "py_Hqvod",
       "name": "[高清] Hqvod",
       "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%E9%AB%98%E7%A0%81%E7%8E%87/Hqvod.py",
+      "api": "https://ghfast.top/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%E9%AB%98%E7%A0%81%E7%8E%87/Hqvod.py",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1
@@ -664,7 +664,7 @@
       "key": "py_兄弟影视",
       "name": "[高清] 兄弟影视",
       "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%E9%AB%98%E7%A0%81%E7%8E%87/%E5%85%84%E5%BC%9F%E5%BD%B1%E8%A7%86.py",
+      "api": "https://ghfast.top/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%E9%AB%98%E7%A0%81%E7%8E%87/%E5%85%84%E5%BC%9F%E5%BD%B1%E8%A7%86.py",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1
@@ -673,7 +673,7 @@
       "key": "py_多多影视",
       "name": "[高清] 多多影视",
       "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%E9%AB%98%E7%A0%81%E7%8E%87/%E5%A4%9A%E5%A4%9A%E5%BD%B1%E8%A7%86.py",
+      "api": "https://ghfast.top/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%E9%AB%98%E7%A0%81%E7%8E%87/%E5%A4%9A%E5%A4%9A%E5%BD%B1%E8%A7%86.py",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1
@@ -682,7 +682,7 @@
       "key": "py_多多追剧",
       "name": "[高清] 多多追剧",
       "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%E9%AB%98%E7%A0%81%E7%8E%87/%E5%A4%9A%E5%A4%9A%E8%BF%BD%E5%89%A7.py",
+      "api": "https://ghfast.top/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%E9%AB%98%E7%A0%81%E7%8E%87/%E5%A4%9A%E5%A4%9A%E8%BF%BD%E5%89%A7.py",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1
@@ -691,7 +691,7 @@
       "key": "py_枝枝影视",
       "name": "[高清] 枝枝影视",
       "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%E9%AB%98%E7%A0%81%E7%8E%87/%E6%9E%9D%E6%9E%9D%E5%BD%B1%E8%A7%86.py",
+      "api": "https://ghfast.top/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%E9%AB%98%E7%A0%81%E7%8E%87/%E6%9E%9D%E6%9E%9D%E5%BD%B1%E8%A7%86.py",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1
@@ -700,7 +700,7 @@
       "key": "py_橘汁视频",
       "name": "[高清] 橘汁视频",
       "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%E9%AB%98%E7%A0%81%E7%8E%87/%E6%A9%98%E6%B1%81%E8%A7%86%E9%A2%91.py",
+      "api": "https://ghfast.top/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%E9%AB%98%E7%A0%81%E7%8E%87/%E6%A9%98%E6%B1%81%E8%A7%86%E9%A2%91.py",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1
@@ -709,7 +709,7 @@
       "key": "py_毒舌影视",
       "name": "[高清] 毒舌影视",
       "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%E9%AB%98%E7%A0%81%E7%8E%87/%E6%AF%92%E8%88%8C%E5%BD%B1%E8%A7%86.py",
+      "api": "https://ghfast.top/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%E9%AB%98%E7%A0%81%E7%8E%87/%E6%AF%92%E8%88%8C%E5%BD%B1%E8%A7%86.py",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1
@@ -718,7 +718,7 @@
       "key": "py_追剧达人",
       "name": "[高清] 追剧达人",
       "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%E9%AB%98%E7%A0%81%E7%8E%87/%E8%BF%BD%E5%89%A7%E8%BE%BE%E4%BA%BA.py",
+      "api": "https://ghfast.top/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%E9%AB%98%E7%A0%81%E7%8E%87/%E8%BF%BD%E5%89%A7%E8%BE%BE%E4%BA%BA.py",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1
@@ -727,7 +727,7 @@
       "key": "py_青空次元",
       "name": "[高清] 青空次元",
       "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%E9%AB%98%E7%A0%81%E7%8E%87/%E9%9D%92%E7%A9%BA%E6%AC%A1%E5%85%83.py",
+      "api": "https://ghfast.top/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%E9%AB%98%E7%A0%81%E7%8E%87/%E9%9D%92%E7%A9%BA%E6%AC%A1%E5%85%83.py",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1
@@ -736,7 +736,7 @@
       "key": "py_热播APP",
       "name": "[高清] 热播APP",
       "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%E9%AB%98%E7%A0%81%E7%8E%87/%E7%83%AD%E6%92%ADAPP.py",
+      "api": "https://ghfast.top/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%E9%AB%98%E7%A0%81%E7%8E%87/%E7%83%AD%E6%92%ADAPP.py",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1
@@ -745,7 +745,7 @@
       "key": "py_金牌APP",
       "name": "[高清] 金牌APP",
       "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%E9%AB%98%E7%A0%81%E7%8E%87/%E9%87%91%E7%89%8CAPP.py",
+      "api": "https://ghfast.top/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%E9%AB%98%E7%A0%81%E7%8E%87/%E9%87%91%E7%89%8CAPP.py",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1
@@ -754,7 +754,7 @@
       "key": "py_ZIP0影视",
       "name": "[高清] ZIP0影视",
       "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%E9%AB%98%E7%A0%81%E7%8E%87/ZIP0%E5%BD%B1%E8%A7%86.py",
+      "api": "https://ghfast.top/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%E9%AB%98%E7%A0%81%E7%8E%87/ZIP0%E5%BD%B1%E8%A7%86.py",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1
@@ -763,7 +763,7 @@
       "key": "py_1234影视",
       "name": "[高清] 1234影视",
       "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%E9%AB%98%E7%A0%81%E7%8E%87/1234%E5%BD%B1%E8%A7%86.py",
+      "api": "https://ghfast.top/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%E9%AB%98%E7%A0%81%E7%8E%87/1234%E5%BD%B1%E8%A7%86.py",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1
@@ -772,7 +772,7 @@
       "key": "py_爱电影_小龙虾",
       "name": "[自写] 爱电影",
       "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%E8%87%AA%E5%86%99/%E7%88%B1%E7%94%B5%E5%BD%B1%20%E5%B0%8F%E9%BE%99%E8%99%BE.py",
+      "api": "https://ghfast.top/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%E8%87%AA%E5%86%99/%E7%88%B1%E7%94%B5%E5%BD%B1%20%E5%B0%8F%E9%BE%99%E8%99%BE.py",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1
@@ -781,7 +781,7 @@
       "key": "py_看看鸭_智谱",
       "name": "[自写] 看看鸭",
       "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/refs/heads/main/py/自写/看看鸭 智谱.py",
+      "api": "https://ghfast.top/https://raw.githubusercontent.com/LHXIUE/Ruyi/refs/heads/main/py/自写/看看鸭 智谱.py",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1
@@ -790,7 +790,7 @@
       "key": "py_橘子影视_搭子",
       "name": "[自写] 橘子影视",
       "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%E8%87%AA%E5%86%99/%E6%A9%98%E5%AD%90%E5%BD%B1%E8%A7%86%20%E6%90%AD%E5%AD%90.py",
+      "api": "https://ghfast.top/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%E8%87%AA%E5%86%99/%E6%A9%98%E5%AD%90%E5%BD%B1%E8%A7%86%20%E6%90%AD%E5%AD%90.py",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1
@@ -799,7 +799,7 @@
       "key": "py_毒舌影院_搭子",
       "name": "[自写] 毒舌影院",
       "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%E8%87%AA%E5%86%99/%E6%AF%92%E8%88%8C%E5%BD%B1%E9%99%A2%20%E6%90%AD%E5%AD%90.py",
+      "api": "https://ghfast.top/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%E8%87%AA%E5%86%99/%E6%AF%92%E8%88%8C%E5%BD%B1%E9%99%A2%20%E6%90%AD%E5%AD%90.py",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1
@@ -907,7 +907,7 @@
       "key": "py_红果漫剧",
       "name": "[短剧] 红果漫剧",
       "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%E7%9F%AD%E5%89%A7/%E7%BA%A2%E6%9E%9C%E6%BC%AB%E5%89%A7.py",
+      "api": "https://ghfast.top/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%E7%9F%AD%E5%89%A7/%E7%BA%A2%E6%9E%9C%E6%BC%AB%E5%89%A7.py",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1
@@ -916,7 +916,7 @@
       "key": "py_红果短剧",
       "name": "[短剧] 红果短剧",
       "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%E7%9F%AD%E5%89%A7/%E7%BA%A2%E6%9E%9C%E7%9F%AD%E5%89%A7.py",
+      "api": "https://ghfast.top/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%E7%9F%AD%E5%89%A7/%E7%BA%A2%E6%9E%9C%E7%9F%AD%E5%89%A7.py",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1
@@ -925,7 +925,7 @@
       "key": "py_正版红果短剧",
       "name": "[短剧] 正版红果短剧",
       "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/refs/heads/main/py/短剧/正版红果短剧.py",
+      "api": "https://ghfast.top/https://raw.githubusercontent.com/LHXIUE/Ruyi/refs/heads/main/py/短剧/正版红果短剧.py",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1
@@ -934,7 +934,7 @@
       "key": "py_红果短剧_高清修复",
       "name": "[短剧] 红果短剧_高清修复",
       "type": 3,
-      "api": "https://gh-proxy.com/https://github.com/LHXIUE/Ruyi/raw/refs/heads/main/py/短剧/红果短剧_高清修复.py",
+      "api": "https://ghfast.top/https://github.com/LHXIUE/Ruyi/raw/refs/heads/main/py/短剧/红果短剧_高清修复.py",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1
@@ -943,7 +943,7 @@
       "key": "py_绿豆短剧",
       "name": "[🔞] 绿豆短剧",
       "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%F0%9F%94%9E/%E7%BB%BF%E8%B1%86%E7%9F%AD%E5%89%A7.py",
+      "api": "https://ghfast.top/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%F0%9F%94%9E/%E7%BB%BF%E8%B1%86%E7%9F%AD%E5%89%A7.py",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1
@@ -952,7 +952,7 @@
       "key": "py_黄豆短剧",
       "name": "[🔞] 黄豆短剧翻",
       "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%F0%9F%94%9E/%E9%BB%84%E8%B1%86%E7%9F%AD%E5%89%A7.py",
+      "api": "https://ghfast.top/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%F0%9F%94%9E/%E9%BB%84%E8%B1%86%E7%9F%AD%E5%89%A7.py",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1
@@ -961,7 +961,7 @@
       "key": "py_野果短剧翻",
       "name": "[🔞] 野果短剧翻",
       "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%F0%9F%94%9E/%E9%87%8E%E6%9E%9C%E7%9F%AD%E5%89%A7%E7%BF%BB.py",
+      "api": "https://ghfast.top/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%F0%9F%94%9E/%E9%87%8E%E6%9E%9C%E7%9F%AD%E5%89%A7%E7%BF%BB.py",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1
@@ -970,7 +970,7 @@
       "key": "py_51短剧翻",
       "name": "[🔞] 51短剧翻",
       "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%F0%9F%94%9E/51%E7%9F%AD%E5%89%A7%E7%BF%BB.py",
+      "api": "https://ghfast.top/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%F0%9F%94%9E/51%E7%9F%AD%E5%89%A7%E7%BF%BB.py",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1
