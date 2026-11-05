@@ -1,13 +1,13 @@
 {
-  "spider": "https://gh-proxy.com/https://github.com/LHXIUE/Ruyi/blob/main/摸鱼.jar;md5;19b2f65c16f492ca8a9c3abadebe8129",
+  "spider": "https://gh-proxy.com/https://github.com/LHXIUE/Ruyi/blob/main/摸鱼.jar",
   "sites": [
     {
       "key": "豆瓣",
       "name": "[片单] 豆瓣",
       "type": 3,
       "api": "csp_Douban",
-      "jar": "https://gh-proxy.com/https://github.com/LHXIUE/Ruyi/blob/main/easy.png;md5;e8dc6bb0f6a1f7a987885fac6173a235",
-      "searchable": 1
+      "jar": "https://gh-proxy.com/https://github.com/LHXIUE/Ruyi/blob/main/easy.png",
+      "searchable": 0
     },
     {
       "key": "py_TMDB",
@@ -247,6 +247,66 @@
       "api": "csp_AppUn",
       "type": 3,
       "ext": "AUj9LzI2v0nALIaWIMvrw0mqpqAfYqjLEaEdBg2Kpjpynjba5tcMRsocodhKWXuxaxWXNQhmHVm/5ch0t87+Ck3kUcf8gS3HStDFKx/zWH77"
+    },
+    {
+      "key": "bl",
+      "name": "[摸鱼] 摆烂4K",
+      "type": 3,
+      "api": "csp_App88",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1,
+      "ext": "Acf4n+FgSJlps29HFqyt+ECG19M+iLto9fxzwikME3YOnRFfaIWR3C9CZF+/o2jh4T6D4bOxYn8j775k1TLOsSHsG7tlKBqeENs8VhcKgZS5u7Gb8/LXYDutl7a21jsXLw=="
+    },
+    {
+      "key": "XieHui",
+      "name": "[摸鱼] 歇会4K",
+      "type": 3,
+      "api": "csp_XieHui",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1,
+      "ext": "AWevGJ+A/nEjquOh7v58lbo8oaOgHdJkEu7/lzGApb2ngqWSO16XNPqrmqkozIxiLHvjDaaxs61fWZUIYBZBGgQ="
+    },
+    {
+      "key": "hy",
+      "name": "[摸鱼] 棠梨4K",
+      "type": 3,
+      "api": "csp_App88",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1,
+      "ext": "Ae8DpdkJGH5s9XIrvlLd8DvpiYdkSSaoIDmmvofda4Gpr9yX8k0a4w1wNmnu4CZ4Nnh03XkYIwooJ+psbf6P8ZY="
+    },
+    {
+      "key": "KaiFan",
+      "name": "[摸鱼] 开饭4K",
+      "type": 3,
+      "api": "csp_KaiFan",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1,
+      "ext": "AfLGR2SW/7tjQA3K8Qgg5u7AG1NNWsCVAVxfMv/V44kP5aqzon5weT9IvX2w2KtBeMpAxc+Y0yRLN0eXf6oiuLw="
+    },
+    {
+      "key": "shangtou",
+      "name": "[摸鱼] 上头4K",
+      "type": 3,
+      "api": "csp_ShangTou",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1,
+      "ext": "Ab723PUSGcnjpXT6567J5El7ZP+7lqBKJnQzkeqdAaVU29VedG35Y36vvAZWXOyL7tUL38RB0IWmvwZj4wWtuwyEOmAg2Nbpi1z46QBiBTmY"
+    },
+    {
+      "key": "FaDai",
+      "name": "[摸鱼] 发呆4K",
+      "type": 3,
+      "api": "csp_FaDai",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1,
+      "ext": "AbjGNiFc0jaPCvOXj2edU7/DIRsvVxb1/2tyMFgaoT8L4eZNchAll5NXn7xBXvEwQvvJ55Odg+IugUeNvfYtPT0="
     },
     {
       "key": "疏影",
