@@ -2,14 +2,6 @@
   "spider": "https://gh-proxy.com/https://github.com/LHXIUE/Ruyi/blob/main/摸鱼.jar;md5;19b2f65c16f492ca8a9c3abadebe8129",
   "sites": [
     {
-      "key": "豆瓣",
-      "name": "[片单] 豆瓣",
-      "type": 3,
-      "api": "csp_Douban",
-      "jar": "https://gh-proxy.com/https://github.com/LHXIUE/Ruyi/blob/main/easy.png;md5;c07ab2794d358d27d4a4e842712d3c16",
-      "searchable": 0
-    },
-    {
       "key": "Douban",
       "name": "[片单] 摸鱼",
       "type": 3,
@@ -24,6 +16,14 @@
           "tmdb": "https://tc-new.z.wiki/autoupload/k2fxc/20260918/yAKC/tmdb.json"
         }
       }
+     },
+     {
+      "key": "豆瓣",
+      "name": "[片单] 豆瓣",
+      "type": 3,
+      "api": "csp_Douban",
+      "jar": "https://gh-proxy.com/https://github.com/LHXIUE/Ruyi/blob/main/easy.png;md5;c07ab2794d358d27d4a4e842712d3c16",
+      "searchable": 0
     },
     {
       "key": "py_TMDB",
