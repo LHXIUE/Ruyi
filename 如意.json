@@ -10,6 +10,22 @@
       "searchable": 0
     },
     {
+      "key": "Douban",
+      "name": "[片单] 摸鱼",
+      "type": 3,
+      "api": "csp_PianDan",
+      "searchable": 1,
+      "indexs": 1,
+      "quickSearch": 1,
+      "filterable": 1,
+      "ext": {
+        "home": {
+          "douban": "https://tc-new.z.wiki/autoupload/k2fxc/20260918/r68R/douban.json",
+          "tmdb": "https://tc-new.z.wiki/autoupload/k2fxc/20260918/yAKC/tmdb.json"
+        }
+      }
+    },
+    {
       "key": "py_TMDB",
       "name": "[片单] TMDB",
       "type": 3,
