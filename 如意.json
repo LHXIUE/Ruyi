@@ -6,7 +6,7 @@
       "name": "[片单] 豆瓣",
       "type": 3,
       "api": "csp_Douban",
-      "jar": "https://gh-proxy.com/https://github.com/LHXIUE/Ruyi/blob/main/easy.png.jar,
+      "jar": "https://gh-proxy.com/https://github.com/LHXIUE/Ruyi/blob/main/easy.png;md5;c07ab2794d358d27d4a4e842712d3c16",
       "searchable": 0
     },
     {
@@ -69,7 +69,7 @@
       "api": "csp_Config",
       "searchable": 0,
       "changeable": 0,
-      "jar": "https://gh-proxy.com/https://github.com/LHXIUE/Ruyi/blob/main/easy.png;c07ab2794d358d27d4a4e842712d3c16",
+      "jar": "https://gh-proxy.com/https://github.com/LHXIUE/Ruyi/blob/main/easy.png;md5;c07ab2794d358d27d4a4e842712d3c16",
       "indexs": 0,
       "style": {
       "type": "rect",
