@@ -576,17 +576,6 @@
       }
     },
     {
-      "key": "TVB云播app",
-      "name": "[Easy] TVB|免扫4K",
-      "type": 3,
-      "api": "csp_AppTVB",
-      "jar": "https://ghfast.top/https://github.com/LHXIUE/Ruyi/blob/main/easy.png;md5;c07ab2794d358d27d4a4e842712d3c16",
-      "searchable": 1,
-      "quickSearch": 1,
-      "changeable": 1,
-      "filterable": 1
-    },
-    {
       "key": "河豚4K",
       "name": "[Easy] 河豚|免扫4K",
       "type": 3,
@@ -597,10 +586,10 @@
       "filterable": 1
     },
     {
-      "key": "Easy-EmbyJS",
-      "name": "[Easy] Emby|免扫4K",
+      "key": "as080900-EmbyJS",
+      "name": "[Easy] 果然|免扫4K",
       "type": 3,
-      "api": "https://easy888.dpdns.org/js/Emby-Easy.js",
+      "api": "https://easy888.dpdns.org/js/Emby-as080900.js",
       "jar": "https://ghfast.top/https://github.com/LHXIUE/Ruyi/blob/main/easy.png;md5;c07ab2794d358d27d4a4e842712d3c16",
       "searchable": 1,
       "changeable": 1,
@@ -608,10 +597,10 @@
       "filterable": 1
     },
     {
-      "key": "as080900-EmbyJS",
-      "name": "[Easy] 果然|免扫4K",
+      "key": "Easy-EmbyJS",
+      "name": "[Easy] Emby|免扫4K",
       "type": 3,
-      "api": "https://easy888.dpdns.org/js/Emby-as080900.js",
+      "api": "https://easy888.dpdns.org/js/Emby-Easy.js",
       "jar": "https://ghfast.top/https://github.com/LHXIUE/Ruyi/blob/main/easy.png;md5;c07ab2794d358d27d4a4e842712d3c16",
       "searchable": 1,
       "changeable": 1,
