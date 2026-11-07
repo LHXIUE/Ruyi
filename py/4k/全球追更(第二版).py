@@ -58,7 +58,7 @@ from base.spider import Spider
 TMDB_API = "https://api.tmdb.org/3"
 TMDB_KEY = "2894d9a1baf7812b451de03c801b0281"
 TMDB_IMG = "https://images.tmdb.org/t/p/w500"
-TMDB_IMG_MID = "https://image.tmdb.org/t/p/w500"
+TMDB_IMG_MID = "https://images.tmdb.org/t/p/w500"
 TMDB_IMG_BIG = "https://images.tmdb.org/t/p/w500"
 
 CHARTS_API = "https://ratefuse.cn/api/charts/public"

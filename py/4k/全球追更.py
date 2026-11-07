@@ -135,7 +135,7 @@ DEFAULT_CONFIG = {
     'chart_api': 'https://ratefuse.cn/api/charts/public',
     'tmdb_api': 'https://api.tmdb.org/3',
     'tmdb_key': '2894d9a1baf7812b451de03c801b0281',
-    'tmdb_poster': 'https://image.tmdb.org/t/p/w500',
+    'tmdb_poster': 'https://images.tmdb.org/t/p/w500',
     'pan_bases': ['http://61.147.247.66:52440', 'https://so.252035.xyz'],
     'mipan_api': 'https://www.mipan.so',
     'ua': ('Mozilla/5.0 (Linux; Android 13) AppleWebKit/537.36 '
