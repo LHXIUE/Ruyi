@@ -422,47 +422,6 @@
       "ext": "Ae6vu7b7i5h70Oy94HyVp82ZDRF6HrMNdCYNTQ442xkG4kY88mkG1x34awtkrrUdk56x2qehUzy3YCLubZhewqD5a5lQeSsfcnYh8z8+qVVL"
     },
     {
-      "key": "LaiChuang",
-      "name": "[摸鱼] 赖床",
-      "type": 3,
-      "api": "csp_LaiChuang",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1,
-      "ext": "AVlJ4J+D/3DMzdKAQnig/9ckDSQU7H+PyPyOE/q+m7eGkaZ9YjDkVXgq17TjYCHuvJa0UinsvgwPiAVd51fKuA0="
-    },
-    {
-      "key": "KanJu",
-      "name": "[摸鱼] 看剧",
-      "type": 3,
-      "api": "csp_KanJu",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1,
-      "changeable": 1,
-      "ext": {
-        "site": "https://kanju.ai",
-        "playname": "ly"
-      }
-    },
-    {
-      "key": "凝光",
-      "name": "[摸鱼] 凝光",
-      "type": 3,
-      "api": "csp_NiuLai",
-      "searchable": 1,
-      "filterable": 1,
-      "changeable": 0,
-      "ext": "AbHckdJkP3IQGfQAetQhutxB3VjOrW67VMoOo8mAdc9grkAgbVv7bUgWbHKHHabksz8nJklfQrFKo56OYXkhQ936PGDo/33ZU4cnkGGALgUlbfxoJoT/TJ/KZwRlYHiajg=="
-    },
-    {
-      "key": "长泽",
-      "name": "[摸鱼] 长泽",
-      "type": 3,
-      "api": "csp_App88",
-      "ext": "AbUqYzi9KxmcqEBrph2PStNUDPxq/XlzxDHJ/Ho29gXr8NgMOEJGFKBsrdYb5xNb+w+Xaj3203DI9YWo5wBv6zGULMNZneW1yESyfC1/S1BM"
-    },
-    {
       "key": "热播影视",
       "name": "[摸鱼] 热播",
       "type": 3,
@@ -491,26 +450,6 @@
       "api": "csp_zhiqiu",
       "searchable": 1,
       "ext": "ATuDzsbtXNA1mpnRWIpcUB8B2+hY3LMP/3Z1xXurADboE8cAKUOjUN6TXimsApauJg/X7yLotzgNXhCsjAn5wuQ="
-    },
-    {
-      "key": "竹隐",
-      "name": "[摸鱼] 竹隐",
-      "type": 3,
-      "api": "csp_NiuLai",
-      "searchable": 1,
-      "filterable": 1,
-      "changeable": 0,
-      "ext": "ASOaI+0HH0pDfWQ9VwPhMaOaO+WarJ6umTa/qwrJ+cbO4qRPAyjfTVh51M3iYZq/nEN+givTp7FLvjhWgQh8WCdjm82k8bbHm80C9j41tlvo"
-    },
-    {
-      "key": "玉阶",
-      "name": "[摸鱼] 玉阶",
-      "type": 3,
-      "api": "csp_NiuLai",
-      "searchable": 1,
-      "filterable": 1,
-      "changeable": 0,
-      "ext": "AR1skS0Mq97cRrUjisQHhwxFfgXFonkw2eX4zfToon+DcScGRXGViBnNIsG5DYOtYkAp0CTia3vGvMluKl75/eMH49CGi2ZWYJa1wyldHjNH"
     },
     {
       "key": "Guazi",
