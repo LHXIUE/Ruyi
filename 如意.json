@@ -1,12 +1,12 @@
 {
-  "spider": "https://ghfast.top/https://github.com/LHXIUE/Ruyi/blob/main/摸鱼.jar;md5;19b2f65c16f492ca8a9c3abadebe8129",
+  "spider": "https://ghfast.top/https://github.com/LHXIUE/Ruyi/blob/main/摸鱼.jar;md5;8b09e92274a61404af204b4e0cc82583",
   "sites": [
     {
       "key": "豆瓣",
       "name": "[Easy] 豆瓣",
       "type": 3,
       "api": "csp_Douban",
-      "jar": "https://ghfast.top/https://github.com/LHXIUE/Ruyi/blob/main/easy.png;md5;c07ab2794d358d27d4a4e842712d3c16",
+      "jar": "https://ghfast.top/https://github.com/LHXIUE/Ruyi/blob/main/easy.jar;md5;90a3eb5b2e875c56b43ffa30ecd7ede1",
       "searchable": 0
     },
     {
@@ -85,7 +85,7 @@
       "api": "csp_Config",
       "searchable": 0,
       "changeable": 0,
-      "jar": "https://ghfast.top/https://github.com/LHXIUE/Ruyi/blob/main/easy.png;md5;c07ab2794d358d27d4a4e842712d3c16",
+      "jar": "https://ghfast.top/https://github.com/LHXIUE/Ruyi/blob/main/easy.jar;md5;90a3eb5b2e875c56b43ffa30ecd7ede1",
       "indexs": 0,
       "style": {
         "type": "rect",
@@ -537,7 +537,7 @@
       "name": "[Easy] 哔哩",
       "type": 3,
       "api": "csp_Bili",
-      "jar": "https://ghfast.top/https://github.com/LHXIUE/Ruyi/blob/main/easy.png;md5;c07ab2794d358d27d4a4e842712d3c16",
+      "jar": "https://ghfast.top/https://github.com/LHXIUE/Ruyi/blob/main/easy.jar;md5;90a3eb5b2e875c56b43ffa30ecd7ede1",
       "searchable": 1,
       "quickSearch": 0,
       "filterable": 0,
@@ -552,7 +552,7 @@
       "name": "[Easy] 哔哩|小品",
       "type": 3,
       "api": "csp_Bili",
-      "jar": "https://ghfast.top/https://github.com/LHXIUE/Ruyi/blob/main/easy.png;md5;c07ab2794d358d27d4a4e842712d3c16",
+      "jar": "https://ghfast.top/https://github.com/LHXIUE/Ruyi/blob/main/easy.jar;md5;90a3eb5b2e875c56b43ffa30ecd7ede1",
       "searchable": 0,
       "quickSearch": 0,
       "changeable": 0,
@@ -566,7 +566,7 @@
       "name": "[Easy] 哔哩|相声",
       "type": 3,
       "api": "csp_Bili",
-      "jar": "https://ghfast.top/https://github.com/LHXIUE/Ruyi/blob/main/easy.png;md5;c07ab2794d358d27d4a4e842712d3c16",
+      "jar": "https://ghfast.top/https://github.com/LHXIUE/Ruyi/blob/main/easy.jar;md5;90a3eb5b2e875c56b43ffa30ecd7ede1",
       "searchable": 0,
       "quickSearch": 0,
       "changeable": 0,
@@ -580,7 +580,7 @@
       "name": "[Easy] 番社|动漫",
       "type": 3,
       "api": "csp_XBPQ",
-      "jar": "https://ghfast.top/https://github.com/LHXIUE/Ruyi/blob/main/easy.png;md5;c07ab2794d358d27d4a4e842712d3c16",
+      "jar": "https://ghfast.top/https://github.com/LHXIUE/Ruyi/blob/main/easy.jar;md5;90a3eb5b2e875c56b43ffa30ecd7ede1",
       "ext": {
         "请求头": "User-Agent$MOBILE_UA",
         "编码": "UTF-8",
@@ -608,7 +608,7 @@
       "name": "[Easy] 河豚|免扫4K",
       "type": 3,
       "api": "csp_AppHT",
-      "jar": "https://ghfast.top/https://github.com/LHXIUE/Ruyi/blob/main/easy.png;md5;c07ab2794d358d27d4a4e842712d3c16",
+      "jar": "https://ghfast.top/https://github.com/LHXIUE/Ruyi/blob/main/easy.jar;md5;90a3eb5b2e875c56b43ffa30ecd7ede1",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1
@@ -618,7 +618,7 @@
       "name": "[Easy] 果然|免扫4K",
       "type": 3,
       "api": "https://easy888.dpdns.org/js/Emby-as080900.js",
-      "jar": "https://ghfast.top/https://github.com/LHXIUE/Ruyi/blob/main/easy.png;md5;c07ab2794d358d27d4a4e842712d3c16",
+      "jar": "https://ghfast.top/https://github.com/LHXIUE/Ruyi/blob/main/easy.jar;md5;90a3eb5b2e875c56b43ffa30ecd7ede1",
       "searchable": 1,
       "changeable": 1,
       "quickSearch": 1,
@@ -629,7 +629,7 @@
       "name": "[Easy] Emby|免扫4K",
       "type": 3,
       "api": "https://easy888.dpdns.org/js/Emby-Easy.js",
-      "jar": "https://ghfast.top/https://github.com/LHXIUE/Ruyi/blob/main/easy.png;md5;c07ab2794d358d27d4a4e842712d3c16",
+      "jar": "https://ghfast.top/https://github.com/LHXIUE/Ruyi/blob/main/easy.jar;md5;90a3eb5b2e875c56b43ffa30ecd7ede1",
       "searchable": 1,
       "changeable": 1,
       "quickSearch": 1,
