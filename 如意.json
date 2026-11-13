@@ -394,6 +394,16 @@
       "changeable": 1
     },
     {
+      "key": "FourK",
+      "name": "[摸鱼] 望舒4K",
+      "type": 3,
+      "api": "csp_App88",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1,
+      "ext": "AV3cDzESDsTIWJ1e0GZQUmOQKfNDMpFhWqSa4cvJKZlVZDKPOBzRbNq+YsDIeVJfxJIlcvy9/9MMJLQR9Yn4P+ABIUU4LXEL+WXhRFcPEDBpGlxkMDqSvKpFJvmPoKC/IA=="
+    },
+    {
       "key": "疏影",
       "name": "[摸鱼] 疏影4K|登录",
       "api": "csp_AppUn",
@@ -406,6 +416,36 @@
       "api": "csp_AppUn",
       "type": 3,
       "ext": "AYdXH70UMM8plqsXPmZuN9zEJQV/2vpn2nM5OAeVwvV966SO86n0qc/65IvyNOY7I8FscuN2i4tnXSoa2eVVhCbvIzsK+OAWQcMwpKHy1zZg"
+    },
+    {
+      "key": "Luck",
+      "name": "[摸鱼] 青禾4K",
+      "type": 3,
+      "api": "csp_Luck",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1,
+      "ext": "AU/L2JHZ0SsU94LbxPA3emscXG7f5FFdKYn8MSdt/5Uktri/nmW4Z3nNYavRogzuAlOkPfPVG27z4OAdO+fyFhc="
+    },
+    {
+      "key": "嗑剧",
+      "name": "[摸鱼] 嗑剧4K",
+      "type": 3,
+      "api": "csp_NiuLai",
+      "searchable": 1,
+      "filterable": 1,
+      "changeable": 0,
+      "ext": "Ab6RU4ow2BTC3y169gXHkoGyOzagKI89ksf5hxcm0/J5a7/pusSapfK8Oy6MtmlqAq8DsECmgbQ377MzwhHsU61D51ptVLqXXNu87y1TOl17"
+    },
+    {
+      "key": "AppZy_wanqing",
+      "name": "[摸鱼] 晚晴4K",
+      "type": 3,
+      "api": "csp_AppZy",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1,
+      "ext": "ARO+hB5vdFdHClVkrLOIgsdq6Ox6dBaesfwPqkaGkkI/kFSRmoG2vqoBgQJ4rQUfq9S/OqwEWkP8qRb4VM8DrYnl2UGeGnTvJjwdn+dbV8Nh"
     },
     {
       "key": "观澜",
@@ -434,6 +474,16 @@
       }
     },
     {
+      "key": "SanJiaoZhou",
+      "name": "[摸鱼] 云归",
+      "type": 3,
+      "api": "csp_App88",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 0,
+      "ext": "AYw+57aVirMpHulq+pwyxEX1UGkmWBETcX32Yp6ZkkvTAnu06xitsJuZdymTwZ70YgSiX+Ga4XisFPKK2Pv4ERJ/y0iGIy9FkpAAVFLF8ltrlb/FEg6CdBcfjWgMUXsibWacZGVzOWczRslQaFUHS2M="
+    },
+    {
       "key": "云岫",
       "name": "[摸鱼] 云岫",
       "type": 3,
@@ -442,6 +492,17 @@
       "filterable": 1,
       "changeable": 0,
       "ext": "Af9dBxsQCjGtIKQ47cJEAnzHtmsGI04C7DCRpNBZk7hshaMWsb76puB4aGapQk4JgYpBV2BKnAQ6GRcUI+/vzYduXc8ItUUvkHR/+LR3Y+NT"
+    },
+    {
+      "key": "拼图",
+      "name": "[摸鱼] 拼图",
+      "type": 3,
+      "api": "csp_NiuLai",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1,
+      "changeable": 0,
+      "ext": "Ad2ohQzN3yKRQEHDYDkK1JK8CL3Se9zIBI5Q4VBRKeR6pIWjoaXOktd6l4RWPQi46M/xcnQCEN8R1PIqXGBDZPds5tolkQ4pUoWAaOKxXmPk"
     },
     {
       "key": "zhiqiu",
@@ -949,6 +1010,24 @@
       "name": "[🔞] 绿豆短剧",
       "type": 3,
       "api": "https://ghfast.top/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%F0%9F%94%9E/%E7%BB%BF%E8%B1%86%E7%9F%AD%E5%89%A7.py",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1
+    },
+    {
+      "key": "py_香蕉短剧翻",
+      "name": "[🔞] 香蕉短剧翻",
+      "type": 3,
+      "api": "https://ghfast.top/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/🔞/香蕉短剧翻.py",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1
+    },
+    {
+      "key": "py_AI短剧AV翻",
+      "name": "[🔞] AI短剧AV翻",
+      "type": 3,
+      "api": "https://ghfast.top/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/🔞/AI短剧AV翻.py",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1
