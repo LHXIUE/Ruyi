@@ -988,6 +988,15 @@
       "filterable": 1
     },
     {
+      "key": "py_红果短剧修复",
+      "name": "[短剧] 红果短剧",
+      "type": 3,
+      "api": "https://ghfast.top/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/短剧/红果短剧修复.py",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1
+    },
+    {
       "key": "py_正版红果短剧",
       "name": "[短剧] 正版红果短剧",
       "type": 3,
