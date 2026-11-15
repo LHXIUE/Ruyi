@@ -970,15 +970,6 @@
       "ext": "AppV7Dsx"
     },
     {
-      "key": "py_红果漫剧",
-      "name": "[短剧] 红果漫剧",
-      "type": 3,
-      "api": "https://ghfast.top/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%E7%9F%AD%E5%89%A7/%E7%BA%A2%E6%9E%9C%E6%BC%AB%E5%89%A7.py",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1
-    },
-    {
       "key": "py_红果短剧",
       "name": "[短剧] 红果短剧",
       "type": 3,
