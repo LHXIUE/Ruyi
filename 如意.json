@@ -96,7 +96,7 @@
       "key": "py_影探",
       "name": "[4k] 影探",
       "type": 3,
-      "api": "https://ghfast.top/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/4k/%E5%BD%B1%E6%8E%A2.py",
+      "api": "https://ghfast.top/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/4k/影探.py",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1
@@ -970,37 +970,10 @@
       "ext": "AppV7Dsx"
     },
     {
-      "key": "py_红果短剧",
-      "name": "[短剧] 红果短剧",
-      "type": 3,
-      "api": "https://ghfast.top/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/%E7%9F%AD%E5%89%A7/%E7%BA%A2%E6%9E%9C%E7%9F%AD%E5%89%A7.py",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1
-    },
-    {
-      "key": "py_红果短剧修复",
-      "name": "[短剧] 红果短剧",
-      "type": 3,
-      "api": "https://ghfast.top/https://raw.githubusercontent.com/LHXIUE/Ruyi/main/py/短剧/红果短剧修复.py",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1
-    },
-    {
       "key": "py_正版红果短剧",
       "name": "[短剧] 正版红果短剧",
       "type": 3,
       "api": "https://ghfast.top/https://raw.githubusercontent.com/LHXIUE/Ruyi/refs/heads/main/py/短剧/正版红果短剧.py",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1
-    },
-    {
-      "key": "py_红果短剧_高清修复",
-      "name": "[短剧] 红果短剧_高清修复",
-      "type": 3,
-      "api": "https://ghfast.top/https://github.com/LHXIUE/Ruyi/raw/refs/heads/main/py/短剧/红果短剧_高清修复.py",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1
