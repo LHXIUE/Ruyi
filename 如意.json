@@ -1,8 +1,9 @@
 {
   "spider": "https://ghfast.top/https://github.com/LHXIUE/Ruyi/blob/main/摸鱼.jar;md5;8b09e92274a61404af204b4e0cc82583",
+   "logo": "https://github.com/LHXIUE/Ruyi/blob/main/IMG_20241214_174322.png",
   "sites": [
     {
-      "name": "🔥┃豆瓣┃推荐",
+      "name": "[嗷呜] 豆瓣",
       "key": "Douban",
       "type": 3,
       "api": "csp_DoubanAmns",
